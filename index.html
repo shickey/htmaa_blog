@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<h2>MAS.863 | How to Make (Almost) Anything | Fall 2017</h2>
+<hr class="title-underline">
+  
+{% assign sorted_weeks = site.weeks | where:'published','true' | sort: 'order' %}
+<div class="row">
+{% for week in sorted_weeks %}
+  {% capture modulo %}{{ forloop.index0 | mod:3 }}{% endcapture %}
+  
+    <div class="col-sm-6 col-md-4 project">
+      <a href="{{ week.url | prepend: site.baseurl }}"><img class="project-image" src="{{ week.image | default: 'pizza.jpg' | prepend: site.imgurl }}"></a>
+      <h3><a href="{{ week.url | prepend: site.baseurl }}">{{ week.title | escape }}</a></h3>
+      <p class="project-short">{{ week.short }}</p>
+    </div>
+    
+    {% if modulo == '2' %}
+    <div class="clearfix visible-md-block visible-lg-block"></div>
+    {% endif %}
+  
+{% endfor %}
+</div>

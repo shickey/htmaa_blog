@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+    
+    <div class="container-fluid">
+      
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 sidebar">
+          <h1 class="site-title"><a href="{{ '/' | prepend: site.baseurl }}">Sean Hickey</a></h1>
+          <a href="{{ '/' | prepend: site.baseurl }}"><img class="avatar" src="{{ '/avatar.jpg' | prepend: site.imgurl }}" /></a>
+          <p class="site-description">{{ site.description }}</p>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 content-area">
+          {{ content }}
+        </div>
+      </div>
+      
+    </div>
+
+  </body>
+
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTM(A)A | Sean Hickey</title>
+    <description>Lifelong Kindergartener at the MIT Media Lab.&lt;br /&gt;&lt;br /&gt;
+Interested in learning, civic/community engagement, and pizza.&lt;br /&gt;
+</description>
+    <link>http://http://fab.cba.mit.edu/classes/MAS.863/CBA/people/seanhickey/</link>
+    <atom:link href="http://http://fab.cba.mit.edu/classes/MAS.863/CBA/people/seanhickey/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 15 Sep 2017 17:50:07 -0400</pubDate>
+    <lastBuildDate>Fri, 15 Sep 2017 17:50:07 -0400</lastBuildDate>
+    <generator>Jekyll v3.2.1</generator>
+    
+  </channel>
+</rss>

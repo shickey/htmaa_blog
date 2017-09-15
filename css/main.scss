@@ -1,0 +1,173 @@
+---
+# Front matter necessary for copying this file to final site
+---
+@charset "utf-8";
+
+$grey-color:       #25292D;
+
+$font-family-title: "Montserrat", Helvetica, sans-serif;
+$font-family-copy: "Lora", Helvetica, sans-serif;
+$font-size-copy: 18px;
+$dark-text-color: $grey-color;
+$medium-text-color: lighten($dark-text-color, 25%);
+$light-text-color: #eee;
+
+$screen-sm-min: 768px;
+
+body {
+  
+  background-color: #fff;
+  color: $dark-text-color;
+  font-family: $font-family-copy;
+  font-size: $font-size-copy;
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $font-family-title;
+    font-weight: bold;
+  }
+  
+  h1, h2{
+    text-transform: uppercase;
+  }
+  
+  h1 {
+    font-size: 30px;
+  }
+  
+  h2 {
+    font-size: 24px;
+  }
+  
+  h3 {
+    font-size: 22px;
+  }
+  
+}
+
+.sidebar {
+  
+  @media (min-width: $screen-sm-min) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+  
+  
+  background-color: $grey-color;
+  color: $light-text-color;
+  
+  padding-top: 51px;
+  
+  font-size: 16px;
+  text-align: center;
+  
+  
+  .site-title {
+    text-transform: uppercase;
+    a {
+      color: $light-text-color;
+      
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  
+  .site-description {
+    padding-bottom: 21px;
+  }
+  
+  img.avatar {
+    width: 128px;
+    height: 128px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }      
+  
+}
+
+.content-area {
+  padding-top: 51px;
+  padding-left: 41px;
+  padding-right: 41px;
+  
+  hr.title-underline {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #333, #ccc, #fff, #fff, #fff);
+    margin-top: 5px;
+  }
+  
+  .project {
+    text-align: center;
+    margin-bottom: 30px;
+    
+    h3 {
+      margin-top: 0px;
+      padding-top: 6px;
+    }
+    
+    
+  }
+  
+  .project-image {
+    width: 200px;
+    height: 200px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
+  
+  .project-medium {
+    // color: $medium-text-color;
+  }
+  
+  .project-short {
+    color: $medium-text-color;
+  }
+  
+  .project-page-image {
+    float: left;
+    margin-right: 21px;
+  }
+  
+  .project-content {
+    padding-top: 41px;
+    padding-bottom: 200px;
+    clear: both;
+    
+    h3 {
+      margin-top: 40px;
+      margin-bottom: 3px;
+    }
+    
+    hr.title-underline {
+      margin-top: 3px;
+      margin-bottom: 10px;
+    }
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  .media-row {
+    
+    img {
+      margin-bottom: 10px;
+    }
+    
+  }
+  
+  .embedded-media {
+    display: block;
+    margin: 0 auto;
+  }
+  
+}
+

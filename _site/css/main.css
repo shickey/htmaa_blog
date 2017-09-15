@@ -1,0 +1,90 @@
+body {
+  background-color: #fff;
+  color: #25292D;
+  font-family: "Lora", Helvetica, sans-serif;
+  font-size: 18px; }
+  body h1, body h2, body h3, body h4, body h5, body h6 {
+    font-family: "Montserrat", Helvetica, sans-serif;
+    font-weight: bold; }
+  body h1, body h2 {
+    text-transform: uppercase; }
+  body h1 {
+    font-size: 30px; }
+  body h2 {
+    font-size: 24px; }
+  body h3 {
+    font-size: 22px; }
+
+.sidebar {
+  background-color: #25292D;
+  color: #eee;
+  padding-top: 51px;
+  font-size: 16px;
+  text-align: center; }
+  @media (min-width: 768px) {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0; } }
+  .sidebar .site-title {
+    text-transform: uppercase; }
+    .sidebar .site-title a {
+      color: #eee; }
+      .sidebar .site-title a:hover {
+        text-decoration: none; }
+  .sidebar .site-description {
+    padding-bottom: 21px; }
+  .sidebar img.avatar {
+    width: 128px;
+    height: 128px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-bottom: 20px; }
+
+.content-area {
+  padding-top: 51px;
+  padding-left: 41px;
+  padding-right: 41px; }
+  .content-area hr.title-underline {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #333, #ccc, #fff, #fff, #fff);
+    margin-top: 5px; }
+  .content-area .project {
+    text-align: center;
+    margin-bottom: 30px; }
+    .content-area .project h3 {
+      margin-top: 0px;
+      padding-top: 6px; }
+  .content-area .project-image {
+    width: 200px;
+    height: 200px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%; }
+  .content-area .project-short {
+    color: #5f6973; }
+  .content-area .project-page-image {
+    float: left;
+    margin-right: 21px; }
+  .content-area .project-content {
+    padding-top: 41px;
+    padding-bottom: 200px;
+    clear: both; }
+    .content-area .project-content h3 {
+      margin-top: 40px;
+      margin-bottom: 3px; }
+    .content-area .project-content hr.title-underline {
+      margin-top: 3px;
+      margin-bottom: 10px; }
+  .content-area img {
+    max-width: 100%; }
+  .content-area .media-row img {
+    margin-bottom: 10px; }
+  .content-area .embedded-media {
+    display: block;
+    margin: 0 auto; }

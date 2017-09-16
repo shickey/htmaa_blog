@@ -44,9 +44,3 @@ PLATFORMS
 DEPENDENCIES
   jekyll (= 3.2.1)
   minima
-
-RUBY VERSION
-   ruby 2.4.1p111
-
-BUNDLED WITH
-   1.15.4

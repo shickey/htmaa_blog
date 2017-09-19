@@ -1,6 +1,6 @@
 ---
 layout: week
-title: 1 - Computer Aided Design
+title: 1 - Computer-Aided Design
 image: /01-cad/oven_cad.png
 short: Drawing in 2D and 3D
 published: true

@@ -31,7 +31,7 @@ I then found a polynomial equation for an embedding of the Klein bottle and used
   </a>
 </div>
 
-From there, I went back to square one and thought about what else I could model in the same vein, but less topologically complex. I then thought about mathematical knots and specifically, the trefoil. After tracking down this paper, I tried to implement the surface in a function node. However, converting the function to prefix notation was...shall we say...less than fun, and once I got Antimony to parse it, the surface still wouldn't render correctly.
+From there, I went back to square one and thought about what else I could model in the same vein, but less topologically complex. I then thought about mathematical knots and specifically, the trefoil. After tracking down [this paper](http://data.imaginary-exhibition.com/IMAGINARY-Trefoil-Stephan-Klaus.pdf), I tried to implement the surface in a function node. However, converting the function to prefix notation was...shall we say...less than fun, and once I got Antimony to parse it, the surface still wouldn't render correctly.
 
 <div class="row media-row">
   <a class="col-md-4 col-md-offset-2 col-sm-6 col-xs-12" href="{{ "/04-3d-printing-and-scanning/horrible-prefix-function.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
@@ -79,3 +79,40 @@ At long last, I used the mesh tools in Fusion 360 to clean up the surface into a
 
 
 ## Printing
+
+The printing process was quite straightforward. I used the Wox printer we have in the Lifelong Kindergarten lab and was quickly able to get my model sliced and ready to print. The geometry required significant supports to be generated, but this was basically a point-and-click operation in the Wox software.
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="{{ "/04-3d-printing-and-scanning/wox-with-supports.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/wox-with-supports.jpg" | prepend: site.imgurl }}">
+  </a>
+</div>
+
+Printing went smoothly and the model stuck well to both the bed and the generated supports.
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="{{ "/04-3d-printing-and-scanning/printing.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/printing.jpg" | prepend: site.imgurl }}">
+  </a>
+</div>
+
+After an hour and a half, I pulled out the model:
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="{{ "/04-3d-printing-and-scanning/finished-with-supports.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/finished-with-supports.jpg" | prepend: site.imgurl }}">
+  </a>
+</div>
+
+And broke off the supports:
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-2 col-sm-6 col-xs-12" href="{{ "/04-3d-printing-and-scanning/finished-1.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/finished-1.jpg" | prepend: site.imgurl }}">
+  </a>
+  <a class="col-md-4 col-sm-6 col-xs-12" href="{{ "/04-3d-printing-and-scanning/finished-2.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/finished-2.jpg" | prepend: site.imgurl }}">
+  </a>
+</div>
+
+A lovely trefoil, indeed!

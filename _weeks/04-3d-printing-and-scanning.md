@@ -2,7 +2,7 @@
 layout: week
 title: 4 - 3D Printing & Scanning
 image: /04-3d-printing-and-scanning/trefoil-mesh.jpg
-short: Knots
+short: Fun with Topology
 published: true
 order: 4
 ---
@@ -116,3 +116,30 @@ And broke off the supports:
 </div>
 
 A lovely trefoil, indeed!
+
+## Scanning
+
+For the scanning portion of this week's assignment, I again decided to consider something topologically interesting and grabbed my assembled cardboard tree from [week 2](http://fab.cba.mit.edu/classes/MAS.863/CBA/people/seanhickey/weeks/02-computer-controlled-cutting/). Scanning actually worked better than expected (though, not fantastically). The first image below shows a fairly decent scan, but the second two show two different attempts of solidifying the scan into a model.
+
+<div class="row media-row">
+  <a class="col-md-4 col-sm-6 col-xs-12" href="{{ "/04-3d-printing-and-scanning/tree-scan-1.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/tree-scan-1.jpg" | prepend: site.imgurl }}">
+  </a>
+  <a class="col-md-4 col-sm-6 col-xs-12" href="{{ "/04-3d-printing-and-scanning/tree-scan-2.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/tree-scan-2.jpg" | prepend: site.imgurl }}">
+  </a>
+  <a class="col-md-4 col-sm-6 col-xs-12" href="{{ "/04-3d-printing-and-scanning/tree-scan-3.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/tree-scan-3.jpg" | prepend: site.imgurl }}">
+  </a>
+</div>
+
+For kicks, I decided to go ahead and print one of the scanned trees. The fidelity is less than good, but it's still an interesting object.
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-2 col-sm-6 col-xs-12" href="{{ "/04-3d-printing-and-scanning/tree-printed-1.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/tree-printed-1.jpg" | prepend: site.imgurl }}">
+  </a>
+  <a class="col-md-4 col-sm-6 col-xs-12" href="{{ "/04-3d-printing-and-scanning/tree-printed-2.jpg" | prepend: site.imgurl }}" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="{{ "/04-3d-printing-and-scanning/tree-printed-2.jpg" | prepend: site.imgurl }}">
+  </a>
+</div>

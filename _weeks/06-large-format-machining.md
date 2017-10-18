@@ -1,7 +1,7 @@
 ---
 layout: week
 title: 6 - Large Format Machining
-image: /06-machining/pizza.jpg
+image: /06-machining/shiny.jpg
 short: FabGiantISP
 published: true
 order: 6
@@ -118,29 +118,29 @@ Swapping the bit out, the rest of the cutting went off without a hitch as well (
 
 After a LOT of sanding, I started experimenting with vinyl cutting the copper foil tape and putting it on the board. This turned out to be mostly straightforward. Since the scale was so big, there was no need to use transfer paper, so I could basically just peel each trace off and place it down like a sticker.
 
-**IMAGE: First trace**
+{% include img1.html subpath="06-machining" img="first-trace.jpg" %}
 
 A lot of the traces were too big to fit on the 6" copper tape, so I had to cut several of them into pieces and reassemble the traces on the board.
 
-**IMAGE: Trace cuts**
+{% include img1.html subpath="06-machining" img="trace-cuts.jpg" %}
 
 The end result was pretty awesome (and shiny to the point where it was hard to photograph).
 
-**IMAGE: Fully traced board**
+{% include img1.html subpath="06-machining" img="fully-traced-board.jpg" %}
 
 ## Component Assembly
 
 After finishing the traces, I vinyl cut copper to act as leads on the various components. Each piece of copper started around the bottom of the component (so it would touch its respectively pad when placed down on the board) and then came around the top of the board so that an actual electrical component could be soldered to it.
 
-**IMAGES: Components and ICs with copper leads**
+{% include img2.html subpath="06-machining" img1="component-leads-1.jpg" img2="component-leads-2.jpg" %}
 
 Before leaving home that morning, I remembered that we had a 1" x 36" dowel sitting in our kitchen (left over from the previous tenants) that would be the _perfect_ size for the ISP pins. I cut it down into six inch sections and covered each in copper tape.
 
-**IMAGES: Dowels and Coppered Dowels**
+{% include img2.html subpath="06-machining" img1="dowels-1.jpg" img2="dowels-2.jpg" %}
 
 Then I taped these down to the ISP header component board, put the board with the holes on top, and hot glued the space between the dowels and the holes to keep everything snug and in place.
 
-**IMAGE: ISP Header**
+{% include img1.html subpath="06-machining" img="isp-header.jpg" %}
 
 From there, I started to put the electrical components in place. At first, I tried just copper taping the components down, but quickly realized that wasn't go to be reliable at all and that I would have to solder everything. Again, I got frustrated by trying to solder big things with a tiny precision tip, so I went down to the electronics shop and dug around in the bins until I unearthed a very old, beat up, blunt solder tip from who knows when.
 
@@ -148,21 +148,21 @@ From there, I started to put the electrical components in place. At first, I tri
 
 It worked like a miracle.
 
-**IMAGES: Soldered components**
+{% include img2.html subpath="06-machining" img1="soldered-components-1.jpg" img2="soldered-components-2.jpg" %}
 
 Once all the components were complete, I placed them on the board to get a sense of how everything would fit together.
 
-**IMAGE: Full Board Layout**
+{% include img1.html subpath="06-machining" img="full-board-layout.jpg" %}
 
 ## "Soldering" the Components
 
 In thinking through the best way to connect the components to the board, I remembered how joining overlapping copper tape with foil tape actually worked pretty well. So I used foil tape to connect the components. I espcially liked how this sort of looked like solder on the board, and I even went ahead and taped the connections down at an angle to look more like a solder joint. This worked well.
 
-**IMAGE: Giant Solder Joints**
+{% include img1.html subpath="06-machining" img="solder-tape.jpg" %}
 
 With everything "soldered" in place, the thing really started to come together.
 
-**IMAGE: Giant Soldered Board**
+{% include img1.html subpath="06-machining" img="board-solder-taped.jpg" %}
 
 I was very nearly ready to test my creation, except for one missing piece:
 
@@ -178,13 +178,13 @@ This design kind of worked, but without gravity to assist (as in the case of the
 
 I plugged the board into the giant USB cable (or more accurately, pluged the cable around the board), hooked up the ISP header to my small ISP programmer I made a few weeks ago, and hooked them both up to my computer. Some LEDs went on! First success! Then, I ran `make flash` and...
 
-**IMAGE: Progamming the board**
+{% include img1.html subpath="06-machining" img="board-programming.jpg" %}
 
 It worked! Kind of! I think??!
 
 So the first time I flashed the chip, it actually did successfully transfer (according to `avrdude`). However, I could get `make fuses` to run correctly and then kept running into a bunch of issues where my computer wouldn't properly recognize the giant board, or avrdude would throw an "invalid device signature" error.
 
-**IMAGE: avrdude Invalid Device Signature**
+{% include img1.html subpath="06-machining" img="avrdude-invalid-device.jpg" %}
 
 It was late and I was tired, so I went home.
 
@@ -192,11 +192,11 @@ It was late and I was tired, so I went home.
 
 I figured if the thing wouldn't actually work as a programmer, at least I could make it look like a nice object. So I spent some time down in the shop laser cutting cardboard tops for the components and vinyl cutting covers and part numbers to put on top.
 
-**IMAGE: Vinyl Cut Part Numbers**
+{% include img1.html subpath="06-machining" img="part-covers.jpg" %}
 
 I realized I still wanted the components to be accessible (in case I ever could get the thing to work in the future), so I simply used painter's tape to secure the covers. At last the board was fully assembled.
 
-**IMAGE: Final Final Board**
+{% include img1.html subpath="06-machining" img="finished-board.jpg" %}
 
 ## Plot Twist
 
@@ -210,10 +210,10 @@ I plugged everything back in and lo and below, the thing programmed successfully
 
 Truly, the only way to know if it worked correctly was to program another board with the FabGiantISP. I grabbed my hello world board from last week, changed the code into a simple "blink" program, and ran `make`. A few seconds later:
 
-**IMAGE: Avrdude done thank you**
+{% include img1.html subpath="06-machining" img="avrdude-done.jpg" %}
 
 And lo and behold:
 
-**GIF: Blink board**
+{% include img1.html subpath="06-machining" img="blink.gif" %}
 
 Phew.

@@ -56,7 +56,7 @@ And after soldering, I had a nice little breakout board that would be much easie
 
 At this point, I realized that creating a breakout board for each of the rest of the components would be a huge pain. I put a call out to the class to see if anyone had any through-hole resistors, capacitors, etc. and Jake came to the rescue. Thanks, Jake!
 
-**IMAGE: Parts from Jake**
+{% include img1.html subpath="06-machining" img="parts-from-jake.jpg" %}
 
 ## Nesting Parts
 
@@ -144,7 +144,7 @@ Then I taped these down to the ISP header component board, put the board with th
 
 From there, I started to put the electrical components in place. At first, I tried just copper taping the components down, but quickly realized that wasn't go to be reliable at all and that I would have to solder everything. Again, I got frustrated by trying to solder big things with a tiny precision tip, so I went down to the electronics shop and dug around in the bins until I unearthed a very old, beat up, blunt solder tip from who knows when.
 
-**IMAGE: Blunt solder tip**
+{% include img1.html subpath="06-machining" img="solder-tip.jpg" %}
 
 It worked like a miracle.
 
@@ -170,7 +170,7 @@ I was very nearly ready to test my creation, except for one missing piece:
 
 Building off the success of the giant USB port, I used the same semi-cut curved cardboard structure to build a socket for the ISP header. Each slot had two foiled cardboard curves (connected on top by foil tape) that (in theory) would touch either side of the pin as the pin was inserted. Each of these was soldered to a ISP cable with a standard sized connector on the other end.
 
-**IMAGE: Giant ISP Cable**
+{% include img1.html subpath="06-machining" img="isp-socket.jpg" %}
 
 This design kind of worked, but without gravity to assist (as in the case of the USB port), the curved pieces of cardboard didn't always fall against the pins in the right way. Still, after jiggling it into place and testing the connectivity with a multimeter, I was ready to test.
 
@@ -202,7 +202,7 @@ I realized I still wanted the components to be accessible (in case I ever could 
 
 I had a little bit of time left on Tuesday afternoon, so I did some investigating into the weird `invalid device signature` error. From what I gathered, this usually occurs when there is some finicky connection. This brought me back to the ISP socket and wondering how I could make it work better. Eric Rosenbaum in LLK had a great idea of simply putting rubber bands around each pair of connectors to hold them against the pin. After putting these on, the whole socket worked better in general. Everything was more aligned and sturdy, and the leads held against the pins with no problem at all.
 
-**IMAGE: Rubber bands on ISP socket**
+{% include img1.html subpath="06-machining" img="isp-rubber-bands.jpg" %}
 
 I plugged everything back in and lo and below, the thing programmed successfully! I checked in the Mac system report and comfirmed that it did indeed program as a USBTinyISP. (If I had had the forethought to rebuild the firmware, I suppose I could have named it USBGiantISP...oh well). I tried to run `make fuses` but kept getting errors about not being able to find the device. At this point, I realized that, completely ironically, it may be my original thumb-drive sized ISP programmer that has the finicky connection (ugggggg). But after a few tries, both `make fuses` and `make rstdisbl` worked leaving me with a fully functional FabGiantISP programmer.
 

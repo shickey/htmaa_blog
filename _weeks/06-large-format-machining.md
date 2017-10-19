@@ -217,3 +217,5 @@ And lo and behold:
 {% include img1.html subpath="06-machining" img="blink.gif" %}
 
 Phew.
+
+{% include img1.html subpath="06-machining" img="project-complete.jpg" %}

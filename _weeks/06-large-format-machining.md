@@ -176,13 +176,13 @@ This design kind of worked, but without gravity to assist (as in the case of the
 
 ## Flashing the ATGiant
 
-I plugged the board into the giant USB cable (or more accurately, pluged the cable around the board), hooked up the ISP header to my small ISP programmer I made a few weeks ago, and hooked them both up to my computer. Some LEDs went on! First success! Then, I ran `make flash` and...
+I plugged the board into the giant USB cable (or more accurately, plugged the cable around the board), hooked up the ISP header to my small ISP programmer I made a few weeks ago, and hooked them both up to my computer. Some LEDs went on! A good sign! Then, I ran `make flash` and...
 
 {% include img1.html subpath="06-machining" img="board-programming.jpg" %}
 
 It worked! Kind of! I think??!
 
-So the first time I flashed the chip, it actually did successfully transfer (according to `avrdude`). However, I could get `make fuses` to run correctly and then kept running into a bunch of issues where my computer wouldn't properly recognize the giant board, or avrdude would throw an "invalid device signature" error.
+So the first time I flashed the chip, it actually did successfully transfer (according to `avrdude`). However, I couldn't get `make fuses` to run correctly and then kept running into a bunch of issues where my computer wouldn't properly recognize the giant board, or avrdude would throw an "invalid device signature" error.
 
 {% include img1.html subpath="06-machining" img="avrdude-invalid-device.jpg" %}
 

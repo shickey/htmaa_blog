@@ -1,6 +1,6 @@
 ---
 layout: week
-title: 7 Embedded Programming
+title: 7 - Embedded Programming
 image: /07-embedded-programming/blink-stack.jpg
 short: Scratch AVR
 published: true

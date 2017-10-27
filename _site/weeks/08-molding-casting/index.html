@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+
+  <title>HTM(A)A | 8 - Molding & Casting</title>
+  <meta name="description" content="This week’s topic was molding and casting, which I was especially excited to learn about since it’s something I have literally zero experience with. Alongsid...">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Lora">
+  <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/ekko-lightbox.min.css">
+  <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/main.css">
+  <link rel="canonical" href="http://http://fab.cba.mit.edu/classes/MAS.863/CBA/people/seanhickey/weeks/08-molding-casting/">
+  <link rel="alternate" type="application/atom+xml" title="HTM(A)A | Sean Hickey" href="http://http://fab.cba.mit.edu/classes/MAS.863/CBA/people/seanhickey/feed.xml" />
+  <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/classes/MAS.863/CBA/people/seanhickey/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/classes/MAS.863/CBA/people/seanhickey/js/ekko-lightbox.min.js"></script>
+  <script type="text/javascript" src="/classes/MAS.863/CBA/people/seanhickey/js/main.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108366257-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108366257-1');
+  </script>
+
+</head>
+
+
+  <body>
+    
+    <div class="container-fluid">
+      
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 sidebar">
+          <h1 class="site-title"><a href="/classes/MAS.863/CBA/people/seanhickey/">Sean Hickey</a></h1>
+          <a href="/classes/MAS.863/CBA/people/seanhickey/"><img class="avatar" src="/classes/MAS.863/CBA/people/seanhickey/img/avatar.jpg" /></a>
+          <p class="site-description">Lifelong Kindergartener at the MIT Media Lab.<br /><br />
+Interested in learning, civic/community engagement, and pizza.<br />
+</p>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 content-area">
+          <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/concrete-hat-square.jpg" class="project-image project-page-image">
+<h1>8 - Molding & Casting</h1>
+<p class="project-short">Tiny Cement Hats</p>
+
+<div class="project-content">
+<p>This week’s topic was molding and casting, which I was especially excited to learn about since it’s something I have literally zero experience with. Alongside this, we learned about 3-axis machining on the Shopbots. The assignment asked us to design and machine a positive mold, then cast it into OOMOO as a negative mold, and finally cast parts from that in Drystone and/or Hydrostone. Seeing as this was a new process for me and that I’ve done ambitious projects the past few weeks, I decided to make something fun and simple. After kicking around a few ideas, I decided to see if I could cast my hat.</p>
+
+<h2 id="modeling">Modeling</h2>
+
+<p>I started by using the Sense 2 to 3D scan my hat (aside: thanks to John for helping me get the scanning station set back up). After a few tries, I got a decent scan.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/hat-scan.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/hat-scan.jpg" />
+  </a>
+</div>
+
+<p>After converting to a mesh, there were a few odd angles and parts, so I took it as an opportunity to try out the sculpting tools in Blender. I didn’t get too deep into it, but it was straightforward to use the sculpting tools to push and pull geometry around and clean up the edges of the model.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/hat-blender.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/hat-blender.jpg" />
+  </a>
+</div>
+
+<p>From there, I importing my mesh into Fusion and made it into a closed mesh (there’s probably a way to do this in Blender, but I knew exactly how to do this quickly in Fusion, so I opted for that). I exported this as an STL in preparation for machining.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/hat-stl.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/hat-stl.jpg" />
+  </a>
+</div>
+
+<h2 id="machining">Machining</h2>
+
+<p>Vik and I teamed up to machine our wax blocks on the desktop Shopbot this week. It was good to have a second pair of eyes to double check everything as we set up the tooling paths and prepared the machine. After hitting go, everything seemed to be going off without a hitch on the roughing pass.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/machining-wax.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/machining-wax.jpg" />
+  </a>
+</div>
+
+<p>However, during the deepest cuts, the spindle was getting a little close for comfort to the top of the wax stock. Luckily, it didn’t collide, but it was a good reminder to double check the plunge depth and available tool length before starting a machining pass. After this, I extended the bit a little farther from the collet and rezeroed the Z before starting the finishing pass. After this, the finishing pass went smoothly and produced a great positive.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/wax-mold.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/wax-mold.jpg" />
+  </a>
+</div>
+
+<h2 id="oomoo">OOMOO</h2>
+
+<p>After we got Vik’s wax successfully machined as well, we went straight to casting the OOMOO. We set up our materials and were getting ready to mix the compounds, but after opening up the Part A bottle, we deiscovered that the compmound has gone bad and set inside the container. It was possible to poke your finger into it, but it certainly wasn’t going to pour. We discovered a (potential) expiration date on the packaging which suggested that it expired back in May. Luckily, this was only true for a few OOMOO kits and we were able to find one that was still liquid (we also alerted Tom and Grace just so they knew about the problem).</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/bad-goo.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/bad-goo.jpg" />
+  </a>
+</div>
+
+<p>After mixing a better compound, we used the vaccuum chamber to pull bubbles out. Using the vaccuum chamber was especially satisfying and pulled a ton of air out of the mixture. We poured the molds and vaccuumed them again to bring as much air as possible to the top.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/poured-mold.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/poured-mold.jpg" />
+  </a>
+</div>
+
+<p>I came back a few hours later, and popped the OOMOO out. Success!</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/oomoo-mold.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/oomoo-mold.jpg" />
+  </a>
+</div>
+
+<p>I was really surprised by (a) the lack of air bubbles in the surface and (b) the fidelity of the wax shape. Every little machining marks was easy to see in the OOMOO mold (which was both impressive and slightly disappointing). I’m curious to know about ways to clean up the machining marks in this process, but it was also awesome that it worked so well the first time.</p>
+
+<h2 id="hydrostone">Hydrostone</h2>
+
+<p>Chugging right along, I mixed up a small amount of Hydrostone and poured it into the OOMOO mold. I somehow managed to mix <em>exactly</em> the right amount, which was satisfying, but also meant I didn’t have any extra to use as a curing test. After putting the mold in the vaccuum chamber once more, I left it to set in the shop. I came back a little while later and found…</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/concrete-hat-and-mold.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/concrete-hat-and-mold.jpg" />
+  </a>
+</div>
+
+<p>…a tiny concrete hat!</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/concrete-hat.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/08-molding-casting/concrete-hat.jpg" />
+  </a>
+</div>
+  
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+  </body>
+
+</html>

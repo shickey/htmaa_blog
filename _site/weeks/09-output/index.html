@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+
+  <title>HTM(A)A | 9 - Output Devices</title>
+  <meta name="description" content="This week, we were introduced to a variety of output devices and challenged to build and program a circuit board that uses an output. Part of me really wante...">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Lora">
+  <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/ekko-lightbox.min.css">
+  <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/main.css">
+  <link rel="canonical" href="http://http://fab.cba.mit.edu/classes/MAS.863/CBA/people/seanhickey/weeks/09-output/">
+  <link rel="alternate" type="application/atom+xml" title="HTM(A)A | Sean Hickey" href="http://http://fab.cba.mit.edu/classes/MAS.863/CBA/people/seanhickey/feed.xml" />
+  <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/classes/MAS.863/CBA/people/seanhickey/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/classes/MAS.863/CBA/people/seanhickey/js/ekko-lightbox.min.js"></script>
+  <script type="text/javascript" src="/classes/MAS.863/CBA/people/seanhickey/js/main.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108366257-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108366257-1');
+  </script>
+
+</head>
+
+
+  <body>
+    
+    <div class="container-fluid">
+      
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 sidebar">
+          <h1 class="site-title"><a href="/classes/MAS.863/CBA/people/seanhickey/">Sean Hickey</a></h1>
+          <a href="/classes/MAS.863/CBA/people/seanhickey/"><img class="avatar" src="/classes/MAS.863/CBA/people/seanhickey/img/avatar.jpg" /></a>
+          <p class="site-description">Lifelong Kindergartener at the MIT Media Lab.<br /><br />
+Interested in learning, civic/community engagement, and pizza.<br />
+</p>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 content-area">
+          <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/filtered-triangle.jpg" class="project-image project-page-image">
+<h1>9 - Output Devices</h1>
+<p class="project-short">Sound is Hard</p>
+
+<div class="project-content">
+<p>This week, we were introduced to a variety of output devices and challenged to build and program a circuit board that uses an output. Part of me really wanted to play around with NTSC video signals, but in thinking about preparing for my final project, I decided to focus on audio output this week (but perhaps I’ll return to video at some point in the future).</p>
+
+<h2 id="boards">Boards</h2>
+
+<p>I started by looking at Neil’s Hello Speaker board on the class site that utilizes a single MOSFET to drive a speaker in one direction. This works perfectly well for outputing simple waveforms (e.g., a square wave) but won’t be super useful in recreating more complex signals. In particular, the fact that the MOSFET only pulls the cone in one direction means that the rest of the audio signal is basically constructed simply by the cone returning to its natural location. Thus, I decided to try to figure out how to drive a speaker in both directions in order to more accurately output audio signals.</p>
+
+<p>Will and Neil were both helpful in thinking through how to get started with this. Neil recommended utilizing an H bridge in order to pull the speaker back and forth. In talking with Will, I decided to simply manufacture the DC motor H bridge circuit as-is and then use that to play around with a speaker as the load instead of the motor. Neil and Will also wisely recommended prototyping with a resistor in place of the speaker while figuring out how to generate the appropriate signals to (a) avoid blowing out the speaker and (b) avoid listening to horrible noise for hours on end.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/09-output/motor-board.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/motor-board.jpg" />
+  </a>
+</div>
+
+<p>After getting the board built and reading through the code, I realized that the project was bit-banging the PWM output to drive the motor. I knew that I wanted to use the hardware PWM affordances of the ATTiny, so after reading back through the datasheet, I realized that this board wasn’t set up to do that since the H bridge wasn’t connected to the hardware PWM pins of the microcontroller. Womp womp. As a result, I redrew a very similar board in KiCad, only this time the H bridge was connected to the PWM output of Timer 0. I manufactured this board and got everything ready to generate some signals.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/09-output/second-board.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/second-board.jpg" />
+  </a>
+</div>
+
+<h2 id="beeps">Beeps</h2>
+
+<p>For some reason, I had it in my head that the specs for Timer 0 and Timer 1 were exactly equivalent in the ATTiny. Turns out, though, that Timer 0 only has 8 bits of resolution while Timer 1 has 16. At first I wondered if this would present a problem in terms of the range of singals the board could produce, but after thinking through it more (and wrapping my head around the signal translations) I realized this would only affect the resolution of the amplitude of the output sound wave. Considering that this was basically a prototyping board, this was fine with me.</p>
+
+<p>After adding a resistor as the temporary load and getting the basics of the code going, generating the PWM signals was straightforward. My setup was…less than nice looking…but it worked. This is safe, right??</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/09-output/mass-of-wires.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/mass-of-wires.jpg" />
+  </a>
+</div>
+
+<p>This also gave me an opportunity to hone my oscilloscope skills. After getting the probes set up correctly and figuring out some of the nuances of the scope we have in LLK, I saw a nice square PWM wave pop out.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/09-output/pwm-square.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/pwm-square.jpg" />
+  </a>
+</div>
+
+<p>Still, I was having trouble understanding how this actually translated into the H brdige output. The H bridge data sheet gave different output waveforms for “slow” and “fast” decay so I played around with different PWM signals to see how it would affect the output. One thing I wondered about is that the H bridge is meant to drive an inductive load and that a speaker acts more like a resistive load (from what I understand). And certainly, the resistor I was using was <em>definitely</em> a resistive load. As a result, the H bridge outputs appeared more like a PWM signal than a continuous analog signal. Even so, I figured I could at least get a decent square wave at a particular frequency to output.</p>
+
+<p>However, when I went to do this, I kept confusing myself about how the PWM signal translates into an analog signal, so I sat down and drew out the signals I wanted to produce.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/09-output/signal-sketch.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/signal-sketch.jpg" />
+  </a>
+</div>
+
+<p>Once I finally wrapped my head around that, generating the waveforms wasn’t too bad. I also figured out how to use the oscilloscope math functions to output the difference between the two sides of the load, which should represent the analog output. Here, the green signal on top represents that analog output (note that each crest and trough of the signal appears as a solid block since it’s really a very tight square PWM wave, again since there was basically no inductance in the load).</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/09-output/oscope-math.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/oscope-math.jpg" />
+  </a>
+</div>
+
+<p>From there, I figured out how to generate square waves at various frequencies. The time was ripe to plug a speaker in.</p>
+
+<div class="row media-row">
+  <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+    <video width="480" controls="" src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/three-beeps.mp4"></video>
+  </div>
+</div>
+
+<p>Beautiful, right?</p>
+
+<p>The next logical step in my head was to see if I could shape the output wave at all into something more complex. I figured a triangle wave would be a straightforward extension of what I already had. Generating the signal wasn’t too bad, though its very apparent how much noise is in the signal here.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/09-output/bad-triangle.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/bad-triangle.jpg" />
+  </a>
+</div>
+
+<p>Once I had two wave generators, I started to realize that I had some timing issues in my circuit. In particular, I tried to output both a square and then a triangle wave at 440Hz using the same microsecond delay in each. However, it seemed that the square wave would output a nice A440, but using the same delay, the triangle would be slightly flat in pitch. I figured that since the triangle wave was executing more instructions per PWM output, somehow the time was falling slightly behind.</p>
+
+<h2 id="filtering">Filtering</h2>
+
+<p>Between the timing problem and the noisy signal, I decided to loop back to Will for some guidance. For timing, he suggested implementing a timed interrupt which should produce a more precisely timed execution. In terms of the signal, he suggested implementing a simple RC low pass filter in order to filter out the PWM signals, but leave the audio signal behind. I had read about RC filters in the past but had never built one, so I decided to follow that route before doing anything else.</p>
+
+<p>At first, I built a simple RC filter with a cutoff around 15kHz thinking that I wanted to retain as much of the human audio spectrum as possible (20Hz-20kHz). However, I then realized that the PWM signal was operating around 30kHz and was still leaving a lot of noise in the signal. Just to see what would happen, I changed the values in order to produce a cutoff around 1500Hz instead. Here’s the circuit on a breadboard (sorry, Neil).</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/09-output/breadboard-filter.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/breadboard-filter.jpg" />
+  </a>
+</div>
+
+<p>This actually worked pretty well! I hooked up the circuit to the oscilloscope and saw a roughly triangular wave pop out.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/09-output/filtered-triangle.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/09-output/filtered-triangle.jpg" />
+  </a>
+</div>
+
+<p>For some reason, there were still some flat parts in the signal, which may have been due an error in my code or otherwise. Still, I went ahead and plugged in a speaker and got…nothing! For some reason, when I would hook the speaker up, the waveform on the oscilloscope would disappear and no audio would come out. I spent some time messing around but to no avail.</p>
+
+<p>All in all, I was glad I figured out how to generate a simple analog signal using the hardware PWM, but it was becoming clear that this wasn’t necessarily going to be a viable solution for high-fidelity audio (much less in stereo). One other thing Will mentioned was that the XMega chips have a hardware DAC onboard which can generate analog signals directly. After reading the datasheet and also tracking down the LM4861 audio amplifier in the fab inventory, I decided to see if I could use those to generate a decent little sound amplifier.</p>
+
+<h2 id="xmega-amplifier">XMega Amplifier</h2>
+
+  
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+  </body>
+
+</html>

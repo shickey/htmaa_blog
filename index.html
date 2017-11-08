@@ -4,7 +4,19 @@ layout: default
 
 <h2>MAS.863 | How to Make (Almost) Anything | Fall 2017</h2>
 <hr class="title-underline">
-  
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 project">	
+		<a href="{{ '/final' | prepend: site.baseurl }}"><img class="project-image" src="{{ '/pizza.jpg' | prepend: site.imgurl }}"></a>
+      <h3><a href="{{ '/final' | prepend: site.baseurl }}">Final Project</a></h3>
+      <p class="project-short">Story Benches?</p>
+	</div>
+</div>
+
+
+<h3>Weekly Blog</h3>
+<hr class="title-underline">
+
 {% assign sorted_weeks = site.weeks | where:'published','true' | sort: 'order' %}
 <div class="row">
 {% for week in sorted_weeks %}

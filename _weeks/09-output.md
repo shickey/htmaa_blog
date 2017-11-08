@@ -71,6 +71,22 @@ For some reason, there were still some flat parts in the signal, which may have 
 
 All in all, I was glad I figured out how to generate a simple analog signal using the hardware PWM, but it was becoming clear that this wasn't necessarily going to be a viable solution for high-fidelity audio (much less in stereo). One other thing Will mentioned was that the XMega chips have a hardware DAC onboard which can generate analog signals directly. After reading the datasheet and also tracking down the LM4861 audio amplifier in the fab inventory, I decided to see if I could use those to generate a decent little sound amplifier.
 
-## XMega Amplifier
+## XMega Experiments
 
+The XMega chips we have in the shop have a dual-channel 12-bit DAC on board. From what I gather, this means it's possible to use the XMega to directly generate stereo analog audio signals with 12 bits of depth. Ultimately, I bet it makes sense to use the XMega to generate stereo line-level audio signals, and then feed each channel into an amplifier to power each speaker. I decided to start by putting together a very simple board just to see if I could get any analog signals to come out of the DAC pins. Luckily, I think I'm finally getting the hang of soldering!
 
+{% include img1.html subpath="09-output" img="xmega-soldered.jpg" %}
+
+After getting all the components on the board, I put together a very simple "blink"-esque program as a test to make sure I could program the board correctly. I plugged in the board to my programmer and...error!
+
+{% include img1.html subpath="09-output" img="operation-not-defined.jpg" %}
+
+After doing a little bit of internet-ing, the only thing I could guess was going wrong was that my USBtiny programmer didn't support the XMega chips. Weird. I went down to the electronics shop and tried the programmers there, but again to not avail. After returning to the datasheet, it turns out that the XMega chips don't use the SPI interface for programming at all. Instead they use a proprietary "PDI" interface which meant I had to rebuild the board. Dang.
+
+Redrawing the schematic and traces proved to be easy enough and after Agnes and I replaced the very well used sacrificial layer on the mill in the electronics shop, I had another board ready to go. I accidentally bridged two of the traces this time while soldering, so I got to use the hot-air rework machine for the first time, which worked amazingly well.
+
+Finally, after finishing the board, I plugged in the mkII programmer and...nothing again! This time I was getting device signature errors which led to to believe that maybe the mkII programmer isn't set up to do PDI communication. Will pointed me toward the ICE programmer which I plugged in and...nothing a third time! This time, it seemed like my computer simply wasn't recognizing the programmer at all. I tried on the linux machine in the electronics shop as well, which seemed to throw a different error, but still wasn't able to connect to the ICE programmer. At this point, I decided to call this week a successful failure, in that I learned a ton about generating and filtering signals (not to mention honing my skills of soldering) but ultimately ended up with not much to show for it. I want to figure out how to get the XMegas up and working so I can really play around with the DACs on that chip (perhaps there's a way to use the hardware USB interface?).
+
+{% include img1.html subpath="09-output" img="xmega-board.jpg" %}
+
+To be continued...

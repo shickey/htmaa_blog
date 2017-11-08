@@ -1,7 +1,7 @@
 ---
 layout: week
 title: Final Project
-image: /pizza.jpg
+image: /final/bench-blink.jpg
 short: Story Benches
 published: true
 ---

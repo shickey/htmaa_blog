@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1">
 
   <title>HTM(A)A | 10 - Machines</title>
-  <meta name="description" content="This week’s assignment was a group project on building multi-axis CNC machines. The CBA section decided to make a 2-axis/XY pancake making machine. Informati...">
+  <meta name="description" content="(Above image by Yun)">
   
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Lora">
   <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/bootstrap.min.css">
@@ -46,11 +46,13 @@ Interested in learning, civic/community engagement, and pizza.<br />
 </p>
         </div>
         <div class="col-xs-12 col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 content-area">
-          <img src="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/foo.jpg" class="project-image project-page-image">
+          <img src="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/makey-cakey.jpg" class="project-image project-page-image">
 <h1>10 - Machines</h1>
-<p class="project-short">Makey Cakey</p>
+<p class="project-short">How to Make Almost Pancakes</p>
 
 <div class="project-content">
+<p>(Above image by <a href="http://fab.cba.mit.edu/classes/MAS.863/CBA/people/kyungyunchoi/index.html">Yun</a>)</p>
+
 <p>This week’s assignment was a group project on building multi-axis CNC machines. The CBA section decided to make a 2-axis/XY pancake making machine. Information about the entire project can be found <a href="http://fab.cba.mit.edu/classes/MAS.863/CBA/machines/index.html">here</a>.</p>
 
 <h2 id="my-role-software-and-ui">My Role: Software and UI</h2>
@@ -61,29 +63,45 @@ Interested in learning, civic/community engagement, and pizza.<br />
 
 <p>The first thing I did was play around with <a href="http://chilipeppr.com/">Chilipeppr</a> and read up on how to make widgets. At first, I was thinking that maybe the best thing to do would be to build out our own Chilipeppr widget that would do the image processing and Gcode generation and from there we could use the existing Chilipeppr interface for the rest our control needs.</p>
 
-<p>However, After meeting up with Pinar, Tomás, and Agnes over the weekend and playing around with <a href="http://mods.cba.mit.edu/">mods</a>, we decided that we could probably extend some existing mods and build out a few custom ones to get everything we needed.</p>
+<p>However, after meeting up with Pinar, Tomás, and Agnes over the weekend and playing around with <a href="http://mods.cba.mit.edu/">mods</a>, we decided that we could probably extend some existing mods and build out a few custom ones to get everything we needed.</p>
 
-<h3 id="the-mods-squads">The Mods Squads</h3>
+<h3 id="the-mods-squad">The Mods Squad</h3>
 
 <p>In thinking about how to make custom mods, I started by building a simple mod that would take multiple gcode files as input, and concatenate them together (with a user-definable ‘dwell’ time instruction in between) and output a single gcode file.</p>
 
-<p><strong>IMAGE: Concat Gcode Mod</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/concat-gcode-mod.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/concat-gcode-mod.jpg" />
+  </a>
+</div>
 
 <p>This was a good exercise in figuring out how to write custom mods and thus how far we could push the interface toward a full pancake-making solution. As we started to build out the rest of the mods program, we discovered some other image processing things that would be useful. Agnes and Tomás worked on extending the threshold mod into a bi-directional “bandpass” filter mod, Agnes built a image reflection mod (so we could print pancakes such that when we flip them with a spatula, the image would be the right way around), and I worked on an image inversion mod.</p>
 
-<p><strong>IMAGE: Image Inversion mod</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/invert-mod.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/invert-mod.jpg" />
+  </a>
+</div>
 
 <h2 id="tinyg-mod">TinyG Mod</h2>
 
 <p>Once we had the image processing pipeline basically set up, I started to think about how to use mods to talk back and forth to the TinyG. The first pass of this was a very simple mod that (in conjunction with the serial mod) would allow the user to type a command in a box, send it to the TinyG, and read the TinyG’s response in another box.</p>
 
-<p><strong>IMAGE TinyG Mod RXTX</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/tinyg-rxtx-mod.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/tinyg-rxtx-mod.jpg" />
+  </a>
+</div>
 
 <h3 id="jog-control">Jog Control</h3>
 
 <p>Using this, I was able to set up the mod configuration and send a simple gcode commands to see the motor controllers light up happily. Win! From there, I wanted to build out a jog control so that we could move the machine around right from mods and without having to manually type move commands. This required being a little smart about how to not send a million instructions down the pipe at once and cause too many instructions to get queued such that the machine wouldn’t stop jogging when you realize the jog control. This required setting up a parser to read the JSON coming back from the TinyG and only sending the next jog command after the previous one finished executing. After figuring out a simple system for that, we had a nice TinyG jogger.</p>
 
-<p><strong>IMAGE TinyG Jogger</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/tinyg-jog-mod.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/tinyg-jog-mod.jpg" />
+  </a>
+</div>
 
 <h3 id="positioning-and-zeroing">Positioning and Zeroing</h3>
 
@@ -93,13 +111,36 @@ Interested in learning, civic/community engagement, and pizza.<br />
 
 <p>After this, I started to think about if the gcode concatenator was really the best way to go. Generating the gcode manually from the toolpaths didn’t seem that hard and would give us much more control over what happens at each step (e.g., should the batter extruder “pull back” after finising a path and moving to another part of the bed to prevent drips?). This would also give us finer control over how to handle the extruder from a software perspective, i.e., should it be a “spindle” that we can turn on and off, or should be be a third axis instead? Emily and I met up to figure out that question and combine our mods together. We also talked with Paul in LLK who used to write gcode generators for a CNC startup (!) who led us toward handling the extruder as a third axis. While Emily and Pinar got a system for generating the correct Z/extruder values in the toolpaths working, I worked on building out the Gcode generation in the TinyG mod.</p>
 
-<p><strong>IMAGE TinyG Toolpath Inputs/Gcode Outputs</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/tinyg-final.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/tinyg-final.jpg" />
+  </a>
+</div>
 
 <h2 id="testing">Testing</h2>
 
-<p>Testing was a hit and miss process. At first, a lot of what we built out worked pretty well. We were able to jog the axes around, zero the machine, and send it gcode commands to move it around the bed at different rates. We were also able to tune the configuration parameters such that 1 unit of movement in the linear axes actually corresponded to inch of physical movement of the end effector. However, once we actually went to send a proper gcode file down the pipe, the very first move instruction kept causing the machine to rocket down to the end of its axes. After a lot of painful debugging, we figured out that somehow the scaling factor was getting messed up in the process and then file was trying to print in some giant coordinate system. We were also getting weird things happening where occasionally, the Travel per Revolution setting on the motor channels was getting set to weird values which would then cause the machine to jog either <em>extremely</em> slow or fast. We banged our heads against the wall on this one for a while, and eventually tried simply scaling down the gcode coordinates to see if that would work at all. This would kind of work for a little while, but after stopping a file, it would sometimes reset the Travel per Revolution configuration again which left us in a place where we couldn’t get the machine to reliably execute.</p>
+<p>Testing was a hit and miss process. At first, a lot of what we built out worked pretty well. We were able to jog the axes around, zero the machine, and send it gcode commands to move it around the bed at different rates. We were also able to tune the configuration parameters such that 1 unit of movement in the linear axes actually corresponded to inch of physical movement of the end effector.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/first-test.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/10-machines/first-test.jpg" />
+  </a>
+</div>
+
+<p>(Image by <a href="http://fab.cba.mit.edu/classes/MAS.863/CBA/people/vparth/index.html">Vik</a>)</p>
+
+<p>However, once we actually went to send a proper gcode file down the pipe, the very first move instruction kept causing the machine to rocket down to the end of its axes. After a lot of painful debugging, we figured out that somehow the scaling factor was getting messed up in the process and then file was trying to print in some giant coordinate system. We were also getting weird things happening where occasionally, the Travel per Revolution setting on the motor channels was getting set to weird values which would then cause the machine to jog either <em>extremely</em> slow or fast. We banged our heads against the wall on this one for a while, and eventually tried simply scaling down the gcode coordinates to see if that would work at all. This would kind of work for a little while, but after stopping a file, it would sometimes reset the Travel per Revolution configuration again which left us in a place where we couldn’t get the machine to reliably execute.</p>
 
 <p>Close, but no cigar.</p>
+
+<h2 id="other-contributions">Other Contributions</h2>
+
+<p>Beyond the code and UI parts of the project, I also jumped in a few times on other parts (milling out the pinions, heat shrinking wires, etc.)</p>
+
+<h2 id="-updates-">** Updates **</h2>
+
+<p>The morning before demoing to the class, I came into the shop just to see if I could figure out what was happening with the bizarre scaling problem. After playing around with the values, I finally realized that when the gcode was sending a G20 instruction to switch to inches units from millimeters, the internal parameters of the TinyG were updating to match. When we would then go update the parameters and restart the board, the units would switch back to mm (thus explaining why the machine was printing pancakes that were sometimes 25.4x larger and sometimes 25.4x smaller than expected). I think with a little more work on the code, we can sort this issue out and get some pancakes printing for real!</p>
+
   
 </div>
 

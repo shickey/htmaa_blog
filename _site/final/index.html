@@ -146,6 +146,30 @@ Interested in learning, civic/community engagement, and pizza.<br />
 </div>
 
 <p>Between those experiments and reading through old fab class projects (like the <a href="http://fab.cba.mit.edu/classes/863.11/people/matthew.keeter/fab_boombox/">fab boombox</a>), I think the way to go will be to use the DACs on the XMega chip to drive line-level audio signals to amplifier chips, and then out to the speakers.</p>
+
+<h2 id="forcepressure-sensing">Force/Pressure Sensing</h2>
+
+<p>In the outputs week, I experimented with different ways to sense force and/or pressure. In the final bench, we want there to be two sensors (one on each side of the bench) that will trigger when someone sits down. Then, the audio playback will begin once <em>both</em> people are seated (since we want the experience of listening to be collective).</p>
+
+<p>First, I played around with simple step response sensors made of foam and copper tape. These worked okay, but didn’t seem like they would be robust enough for the final project.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/11-input/folded-sensor.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/11-input/folded-sensor.jpg" />
+  </a>
+</div>
+
+<p>I also ordered some strain gauges off of Amazon and figured out how to wire one of these up to the ADC and get sensible readings out of it. This actually porved to be pretty successful (especially since we don’t really care about more <em>much</em> force is applied, just that there <em>is</em> force) so this may be the way to go for the final bench.</p>
+
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/11-input/wired-gauge-board.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/11-input/wired-gauge-board.jpg" />
+  </a>
+</div>
+
+<p>One open question is the best way to mount this type of sensor so that it reads accurately, but isn’t in the way or visible at all to the participants. I also wonder if it may make sense to put two gauges on each side of the bench just to increase confidence that someone is actually sitting down.</p>
+
+<p>More soon!</p>
   
 </div>
 

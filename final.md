@@ -56,3 +56,19 @@ Clearly one of the most important functions of the bench is audio playback. I us
 {% include img2.html subpath="09-output" img1="xmega-board.jpg" img2="filtered-triangle.jpg" %}
 
 Between those experiments and reading through old fab class projects (like the [fab boombox](http://fab.cba.mit.edu/classes/863.11/people/matthew.keeter/fab_boombox/)), I think the way to go will be to use the DACs on the XMega chip to drive line-level audio signals to amplifier chips, and then out to the speakers.
+
+## Force/Pressure Sensing
+
+In the outputs week, I experimented with different ways to sense force and/or pressure. In the final bench, we want there to be two sensors (one on each side of the bench) that will trigger when someone sits down. Then, the audio playback will begin once *both* people are seated (since we want the experience of listening to be collective).
+
+First, I played around with simple step response sensors made of foam and copper tape. These worked okay, but didn't seem like they would be robust enough for the final project.
+
+{% include img1.html subpath="11-input" img="folded-sensor.jpg" %}
+
+I also ordered some strain gauges off of Amazon and figured out how to wire one of these up to the ADC and get sensible readings out of it. This actually porved to be pretty successful (especially since we don't really care about more *much* force is applied, just that there *is* force) so this may be the way to go for the final bench.
+
+{% include img1.html subpath="11-input" img="wired-gauge-board.jpg" %}
+
+One open question is the best way to mount this type of sensor so that it reads accurately, but isn't in the way or visible at all to the participants. I also wonder if it may make sense to put two gauges on each side of the bench just to increase confidence that someone is actually sitting down.
+
+More soon!

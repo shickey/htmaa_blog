@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+
+  <title>HTM(A)A | 13 - Networking</title>
+  <meta name="description" content="This week focused on networking which we broadly defined as communication between processors. As we’re nearing the end of the semester, I spent much of my ti...">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Lora">
+  <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/ekko-lightbox.min.css">
+  <link rel="stylesheet" href="/classes/MAS.863/CBA/people/seanhickey/css/main.css">
+  <link rel="canonical" href="http://http://fab.cba.mit.edu/classes/MAS.863/CBA/people/seanhickey/weeks/13-networking/">
+  <link rel="alternate" type="application/atom+xml" title="HTM(A)A | Sean Hickey" href="http://http://fab.cba.mit.edu/classes/MAS.863/CBA/people/seanhickey/feed.xml" />
+  <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/classes/MAS.863/CBA/people/seanhickey/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/classes/MAS.863/CBA/people/seanhickey/js/ekko-lightbox.min.js"></script>
+  <script type="text/javascript" src="/classes/MAS.863/CBA/people/seanhickey/js/main.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108366257-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108366257-1');
+  </script>
+
+</head>
+
+
+  <body>
+    
+    <div class="container-fluid">
+      
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 sidebar">
+          <h1 class="site-title"><a href="/classes/MAS.863/CBA/people/seanhickey/">Sean Hickey</a></h1>
+          <a href="/classes/MAS.863/CBA/people/seanhickey/"><img class="avatar" src="/classes/MAS.863/CBA/people/seanhickey/img/avatar.jpg" /></a>
+          <p class="site-description">Lifelong Kindergartener at the MIT Media Lab.<br /><br />
+Interested in learning, civic/community engagement, and pizza.<br />
+</p>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 content-area">
+          <img src="/classes/MAS.863/CBA/people/seanhickey/img/13-networking/fourier.jpg" class="project-image project-page-image">
+<h1>13 - Networking</h1>
+<p class="project-short">Hip Hip, Fourier!</p>
+
+<div class="project-content">
+<p>This week focused on networking which we broadly defined as communication between processors. As we’re nearing the end of the semester, I spent much of my time this week on final project stuff. Specifically, I finally got the XMegas to program and generate some reasonable audio output form the DAC. So when it came to the networking assignment, I decided to build off of that.</p>
+
+<h2 id="the-idea">The Idea</h2>
+
+<p>Now that I could actually output audio from a microcontroller, I wondered if/how I might be able to use that communciate with another. Naturally, I went to the idea of having a second controller pick up audio from the first microcontroller using a microphone. My first idea was to simply play a specific frequency and when the microphone detected that frequency, it would blink an LED or something. In thinking about that further, I realized I’d need to do at least some basic signal processing to get the frequency data out of the audio stream. This sounded like a job for the Fast-Fourier Transform!</p>
+
+<p>From there, I wondered how hard it would be to detect multiple frequencies using the FFT and maybe even use that to transmit digital data. E.g., when the listener board detects 400Hz, it starts listening. Then each second later the transmitting board outputs either 400Hz + 800Hz (the latter at half the amplitude) to represent a 0 or 400Hz + 1600Hz to represent a 1. Once the listener stops detecting 400Hz, it would recognize that the transmission was over. Naturally, the throughput would be unremarkable, to say the least, (1 bit per second), BUT could you do it?? More on this later.</p>
+
+<h2 id="boards">Boards</h2>
+
+<p>As I said earlier, I spent a lot of time this week getting the XMega DACs to program and work correctly in preparation for my final project.</p>
+
+<p><strong>IMAGE: XMega Board</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/13-networking/xmega-board.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/13-networking/xmega-board.jpg" />
+  </a>
+</div>
+
+<p>Once that was up and working “reasonably” well, I started looking around for amplifier chip to drive the signal through speakers at a reasonable level. I found a couple of LM386 chips laying around in LLK, so I build a simple board using those to amplify the signal with 20x gain.</p>
+
+<p><strong>IMAGE: LM386 Board</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/13-networking/lm386-board.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/13-networking/lm386-board.jpg" />
+  </a>
+</div>
+
+  
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+  </body>
+
+</html>

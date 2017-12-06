@@ -169,7 +169,46 @@ Interested in learning, civic/community engagement, and pizza.<br />
 
 <p>One open question is the best way to mount this type of sensor so that it reads accurately, but isn’t in the way or visible at all to the participants. I also wonder if it may make sense to put two gauges on each side of the bench just to increase confidence that someone is actually sitting down.</p>
 
-<p>More soon!</p>
+<h2 id="week-13-update">Week 13 Update</h2>
+
+<p>During week 13, I spent a bunch more time getting audio stuff to work. After several weeks of banging my head against the wall, trying to get the XMegas to program, I finally managed to successfully get my computer to recognize the ICE programmer after doing a bunch of weird stuff that included downlading, modifying, and installing a dummy kernel extension. Ugg. At least I could program chips now! I had my ATXmega8e5 board ready to go and…nothing. I still couldn’t get the ICE programmer to recongize the board. I tried soldering a different microcontroller on, testing with a variety of computers and OSes, and even trying a brand-new out of the box ICE programmer that Neil found, all of which failed. The only difference I could see between my board and the XMega hello world was the use of the 8e5 vs 16e5 chip. I assumed this wouldn’t make a difference (and maybe it shouldn’t) since they have the same pinouts, but after remilling my board and putting a 16e5 on, I finally go it to work!</p>
+
+<p><strong>IMAGE: XMega Working</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/final/xmega-working.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/final/xmega-working.jpg" />
+  </a>
+</div>
+
+<p>From here, I could – at long last – begin playing with the DACs. Getting them up and working wasn’t too hard and I was able to get a basic signal out after writing a few lines of code. I then wanted to see if I could load in an array of audio samples and get the DAC to play those back. I found the <a href="https://github.com/olleolleolle/wav2c">wav2c</a> utility which converts an 8bit 8000Hz wav file into a C header containing an array of all the data. Still, this data was (obviously) only 8 bits wide so I had to scale it up into the 12 bits that the DAC uses. I generated a short 4000 sample sound of me saying “hello world” and uploaded that to the board. This <em>sort of</em> worked, except it seemed to only be playing half the sound. After ~2000 samples, the DAC would simply plateau (not at zero) until it would loop all the way back around and start playing the sample from the top.</p>
+
+<p><strong>IMAGE: 2000 sample dropoff</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/final/2000-sample-dropoff.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/final/2000-sample-dropoff.jpg" />
+  </a>
+</div>
+
+<p>This problem was really baffling me and for the longest time, I was convinced it was some sort of type conversion issue (like, maybe the XMega was doing improper pointer arithmetic and skipping every other sample of something). I also wondered if maybe the wav2c utility was borked and had simply produced bogus data. I even went so far as to write my own WAV to sample utility (which was actually nicer, because I could use all the 12 bits of the DAC from the start), but it ended up producing exactly the same result on the XMega. I also thought that maybe something was off with my timescales which was causing only half the samples to play, but after slowing down the output 10x, it still had the same problem. Finally, after a conversation with Jake, I realized that 2000 is very close to an important number in computing: 2048. I zoomed in with the oscilloscope and lo and behold, it was producing exactly 2048 samples before plateauing. I finally realized that I was simply taking up too much memory and that there was, in fact, no more space to put samples or play them back from. Mystery solved.</p>
+
+<p>With this part figured out, I started to design the final electronics for the project. I discovered that SD cards natively use SPI for communication which answered the question of how to store large amounts of data and stream them into the XMega as necessary. After tracking down some SD card sockets (thanks again, Jake), I was ready to draw out a (hopefully) final schematic. The final board has connections for two strain gauges, terminals for stereo audio to get fed into amplifier boards, the SD card, an FTDI header for debugging and such, and all the other little components to make it all work together.</p>
+
+<p><strong>IMAGE: Final PCB</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/final/final-pcb.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/final/final-pcb.jpg" />
+  </a>
+</div>
+
+<p>I also spent some time this week in Fusion drawing some press-fit bench ideas based on the fab standing desk design. I’m hoping to make a few cardboard models over the next few days.</p>
+
+<p><strong>IMAGE: Bench Cad</strong></p>
+<div class="row media-row">
+  <a class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" href="/classes/MAS.863/CBA/people/seanhickey/img/final/bench-cad.jpg" data-toggle="lightbox" data-gallery="week-gallery">
+    <img src="/classes/MAS.863/CBA/people/seanhickey/img/final/bench-cad.jpg" />
+  </a>
+</div>
+
   
 </div>
 

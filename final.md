@@ -75,12 +75,10 @@ One open question is the best way to mount this type of sensor so that it reads 
 
 During week 13, I spent a bunch more time getting audio stuff to work. After several weeks of banging my head against the wall, trying to get the XMegas to program, I finally managed to successfully get my computer to recognize the ICE programmer after doing a bunch of weird stuff that included downlading, modifying, and installing a dummy kernel extension. Ugg. At least I could program chips now! I had my ATXmega8e5 board ready to go and...nothing. I still couldn't get the ICE programmer to recongize the board. I tried soldering a different microcontroller on, testing with a variety of computers and OSes, and even trying a brand-new out of the box ICE programmer that Neil found, all of which failed. The only difference I could see between my board and the XMega hello world was the use of the 8e5 vs 16e5 chip. I assumed this wouldn't make a difference (and maybe it shouldn't) since they have the same pinouts, but after remilling my board and putting a 16e5 on, I finally go it to work!
 
-**IMAGE: XMega Working**
 {% include img1.html subpath="final" img="xmega-working.jpg" %}
 
 From here, I could -- at long last -- begin playing with the DACs. Getting them up and working wasn't too hard and I was able to get a basic signal out after writing a few lines of code. I then wanted to see if I could load in an array of audio samples and get the DAC to play those back. I found the [wav2c](https://github.com/olleolleolle/wav2c) utility which converts an 8bit 8000Hz wav file into a C header containing an array of all the data. Still, this data was (obviously) only 8 bits wide so I had to scale it up into the 12 bits that the DAC uses. I generated a short 4000 sample sound of me saying "hello world" and uploaded that to the board. This *sort of* worked, except it seemed to only be playing half the sound. After ~2000 samples, the DAC would simply plateau (not at zero) until it would loop all the way back around and start playing the sample from the top.
 
-**IMAGE: 2000 sample dropoff**
 {% include img1.html subpath="final" img="2000-sample-dropoff.jpg" %}
 
 This problem was really baffling me and for the longest time, I was convinced it was some sort of type conversion issue (like, maybe the XMega was doing improper pointer arithmetic and skipping every other sample of something). I also wondered if maybe the wav2c utility was borked and had simply produced bogus data. I even went so far as to write my own WAV to sample utility (which was actually nicer, because I could use all the 12 bits of the DAC from the start), but it ended up producing exactly the same result on the XMega. I also thought that maybe something was off with my timescales which was causing only half the samples to play, but after slowing down the output 10x, it still had the same problem. Finally, after a conversation with Jake, I realized that 2000 is very close to an important number in computing: 2048. I zoomed in with the oscilloscope and lo and behold, it was producing exactly 2048 samples before plateauing. I finally realized that I was simply taking up too much memory and that there was, in fact, no more space to put samples or play them back from. Mystery solved.
@@ -92,7 +90,6 @@ With this part figured out, I started to design the final electronics for the pr
 
 I also spent some time this week in Fusion drawing some press-fit bench ideas based on the fab standing desk design. I'm hoping to make a few cardboard models over the next few days.
 
-**IMAGE: Bench Cad**
 {% include img1.html subpath="final" img="bench-cad.jpg" %}
 
 

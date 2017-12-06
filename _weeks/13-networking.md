@@ -19,8 +19,7 @@ From there, I wondered how hard it would be to detect multiple frequencies using
 
 As I said earlier, I spent a lot of time this week getting the XMega DACs to program and work correctly in preparation for my final project. After a lot of hassle getting the ICE programmer to work, I finally managed to get some code onto an XMega and some signal coming out of the DAC.
 
-**IMAGE: XMega Board**
-{% include img1.html subpath="13-networking" img="xmega-signal.jpg" %}
+{% include img1.html subpath="final" img="xmega-working.jpg" %}
 
 After this, I wanted to find a way to amplify the audio signal coming out of the board. The fab inventory listed the LM4861 chip so I designed a board around that.
 
@@ -36,13 +35,12 @@ Unfortunately, as I started to look for components, I realized that we didn't ha
 
 Ultimately, I was able to get some sound out of the board by simply attaching a couple of speakers directly to the DAC output (not recommended, obviously, but it did sort of work).
 
-**IMAGE: XMega Speakers**
 {% include img1.html subpath="13-networking" img="xmega-speakers.jpg" %}
 
 With a functioning sound outputting board, I decided to mill Neil's MEMS microphone hello world board, just to prototype the audio communication. Getting this up and working was straightforward and I even got to use my fancy reflow soldering skills!
 
 **IMAGE: MEMS board**
-{% include img1.html subpath="13-networking" img="xmega-signal.jpg" %}
+{% include img1.html subpath="13-networking" img="mems-board.jpg" %}
 
 Now came the (next) tough part: the FFT
 
@@ -77,7 +75,6 @@ This was on a good track
 
 Now that I had a FHT proof-of-concept board working, I went back to the XMega board to program in the different frequencies I would use to represent data. Generating sine waves was easy (thanks to Sam's hello world Xmega code) and getting a sum-of-sines is really only a few lines of code beyond that. This produced a beautiful wave on the scope.
 
-**IMAGE: Sum of Sines**
 {% include img1.html subpath="13-networking" img="sum-of-sines.jpg" %}
 
 It played okay through the little speakers as well. Unfortunately, when I used the MEMS board to grab the frequency data off of it, it simply wasn't loud enough. I could *sometimes* get it to pick up a frequency for a split second, but even putting the mic almost directly against the speaker didn't work reliably. [Aside: if I were to do this project again/continue working on it, I would look more into the MEMS microphone gain to see if I could get it to pick up weaker signals/signal from farther away]. Without an amplifier, this simply wasn't going to work. Still, I decided I could at least try to get the data decoding to work on the MEMS board.

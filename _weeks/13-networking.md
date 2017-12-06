@@ -1,7 +1,7 @@
 ---
 layout: week
 title: 13 - Networking
-image: /13-networking/fourier.jpg
+image: /13-networking/fht-bins-square.jpg
 short: Hip Hip, Fourier!
 published: true
 order: 13
@@ -23,13 +23,11 @@ As I said earlier, I spent a lot of time this week getting the XMega DACs to pro
 
 After this, I wanted to find a way to amplify the audio signal coming out of the board. The fab inventory listed the LM4861 chip so I designed a board around that.
 
-**IMAGE: LM4861 PCB**
 {% include img1.html subpath="13-networking" img="lm4861-pcb.jpg" %}
 
 I spent some time looking around for LM4861 amplifier chips but to no avail. Luckily, I found a couple of the ubiquitous LM386 chips in the parts bin in LLK so I started to design a board around those instead.
 
-**IMAGE: LM386 Board**
-{% include img1.html subpath="13-networking" img="lm386-schematic.jpg" %}
+{% include img1.html subpath="13-networking" img="lm386-pcb.jpg" %}
 
 Unfortunately, as I started to look for components, I realized that we didn't have the capacitors on hand to really make this thing work. I also wasn't super jazzed about using this chip since it wouldn't operate on the 3.3V that the XMegas work with.
 
@@ -38,9 +36,6 @@ Ultimately, I was able to get some sound out of the board by simply attaching a 
 {% include img1.html subpath="13-networking" img="xmega-speakers.jpg" %}
 
 With a functioning sound outputting board, I decided to mill Neil's MEMS microphone hello world board, just to prototype the audio communication. Getting this up and working was straightforward and I even got to use my fancy reflow soldering skills!
-
-**IMAGE: MEMS board**
-{% include img1.html subpath="13-networking" img="mems-board.jpg" %}
 
 Now came the (next) tough part: the FFT
 
@@ -54,20 +49,14 @@ I tracked down [this library](http://wiki.openmusiclabs.com/wiki/ArduinoFHT) whi
 
 I then tracked down [this blog post](http://www.waitingforfriday.com/?p=53) which contained a different AVR FHT library and some info and examples on how to use it. Once again, there was some battling with the compiler to get it to work, but I finally did manage to get it going. I then spent an inoridinate amount of time trying to get meaningful values out of the thing. This was a combination of the fiddling with the scaling and zero-value of the audio input on the ADC, setting proper gain values, battling with byte-ordering, and fussing with time scales until some that looked *anything* like a proper set of Fourier bins emerged. But at long long last, I started to get something reasonable by putting my earbuds directly against the mic:
 
-**IMAGE: Earbuds/FHT Bins**
-{% include img2.html subpath="13-networking" img1="earbuds.jpg" img2="fht-bin.jpg" %}
+{% include img2.html subpath="13-networking" img1="earbuds.jpg" img2="fht-bins.jpg" %}
 
-Here you can see the strongest frequency in the **Kth** bin. After all the trouble getting the thing to work, this moment was really satisifying because you could whistle at higher and lower frequencies and see the values slide between the bins. Winning.
+Here you can see the strongest frequency in the 14th bin. After all the trouble getting the thing to work, this moment was really satisifying because you could whistle at higher and lower frequencies and see the values slide between the bins. Winning.
 
-From here, it wasn't too hard to turn this data into actual frequencies, since the bins of the FHT even divide the frequency space. I.e., you can simply multiply a bin by the frequency "width" of each bin (in this case 143Hz) and get the frequency that the bin represents. Using this, I wrote a different python interface to display the fundamental frequency coming out of the data.
-
-**IMAGE: Fundamental Frequency**
-{% include img1.html subpath="13-networking" img="fundamental-frequency.jpg" %}
-
-Since I wanted to get two frequencies out ultimately (so that I could differentiate between zero and one in the digital data), I extended this to search for a second-most frequency after the fundamental.
+From here, it wasn't too hard to turn this data into actual frequencies, since the bins of the FHT even divide the frequency space. I.e., you can simply multiply a bin by the frequency "width" of each bin (in this case 143Hz) and get the frequency that the bin represents. Using this, I wrote a different python interface to display the fundamental frequency coming out of the data. Since I wanted to get two frequencies out ultimately (so that I could differentiate between zero and one in the digital data), I extended this to search for a second-most frequency after the fundamental.
 
 **IMAGE: Second Frequency**
-{% include img1.html subpath="13-networking" img="second-frequency.jpg" %}
+{% include img1.html subpath="13-networking" img="frequencies.jpg" %}
 
 This was on a good track
 

@@ -85,7 +85,6 @@ This problem was really baffling me and for the longest time, I was convinced it
 
 With this part figured out, I started to design the final electronics for the project. I discovered that SD cards natively use SPI for communication which answered the question of how to store large amounts of data and stream them into the XMega as necessary. After tracking down some SD card sockets (thanks again, Jake), I was ready to draw out a (hopefully) final schematic. The final board has connections for two strain gauges, terminals for stereo audio to get fed into amplifier boards, the SD card, an FTDI header for debugging and such, and all the other little components to make it all work together.
 
-**IMAGE: Final PCB**
 {% include img1.html subpath="final" img="final-pcb.jpg" %}
 
 I also spent some time this week in Fusion drawing some press-fit bench ideas based on the fab standing desk design. I'm hoping to make a few cardboard models over the next few days.

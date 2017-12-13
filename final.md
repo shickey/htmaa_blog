@@ -198,6 +198,12 @@ Now that I had the audio board essentially working (at least, the basics), I mov
 
 {% include img1.html subpath="final" img="four-load-cells.jpg" %}
 
+### Aside: Wiring Clips
+
+Clearly I was going to need to run wire underneath the bench, both for the load cells as well as for the speaker on the side of the bench without the electronics. I figured my best bet was to run the wires along the beams, so I quickly drew and 3D printed some clips that I can attach to the beams to keep wires in order.
+
+{% include img1.html subpath="final" img="cable-clip.jpg" %}
+
 ### Back Again to the Bench
 
 After getting the actual plywood I was going to use for the bench, I reprinted some test parts with tighter gaps and got a lovely press fit (with help from a rubber mallet).

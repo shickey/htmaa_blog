@@ -65,7 +65,7 @@ First, I played around with simple step response sensors made of foam and copper
 
 {% include img1.html subpath="11-input" img="folded-sensor.jpg" %}
 
-I also ordered some strain gauges off of Amazon and figured out how to wire one of these up to the ADC and get sensible readings out of it. This actually porved to be pretty successful (especially since we don't really care about more *much* force is applied, just that there *is* force) so this may be the way to go for the final bench.
+I also ordered some strain gauges off of Amazon and figured out how to wire one of these up to the ADC and get sensible readings out of it. This actually proved to be pretty successful (especially since we don't really care about how *much* force is applied, just that there *is* force) so this may be the way to go for the final bench.
 
 {% include img1.html subpath="11-input" img="wired-gauge-board.jpg" %}
 
@@ -91,4 +91,143 @@ I also spent some time this week in Fusion drawing some press-fit bench ideas ba
 
 {% include img1.html subpath="final" img="bench-cad.jpg" %}
 
+## Week 14 Updates
 
+For a variety of reasons, I decided to charge ahead and try to finish my final project a week ahead of time. I began by revisiting the physical design of the bench. Kalli (my collaborator) put up this picture on our little website for the project.
+
+{% include img1.html subpath="final" img="bench-line-drawing.png" %}
+
+I loved this image, both in terms of its simplicity and its proportions, so I began to redraw the bench using this image as inspiration. Working from there, I put together a rough parameterized model in Fusion that I thought captured the same spirit, but had real-world bench-y dimensions. I also wanted to make the model press fit in the end, so I added teeth on the ends to fit together.
+
+{% include img1.html subpath="final" img="final-bench-rough-model.jpg" %}
+
+Kalli and I both really liked this direction, so I kept refining the model. One big question was where to put the speakers. At first, I liked the idea of putting them underneath the bench leaving the top of the bench totally flat. After thinking about it more, though, this had some significant drawbacks: (a) it might be hard to hear sound coming from below the bench and (b) there wouldn't be any visible indication to participants that the bench would play audio, which might be...startling. So after talking about it with Kalli, we decided to embed a speakers on either side of the top of the bench facing upward. After tracking down the speakers I wanted to buy from Digikey, I added spots for them in the model.
+
+{% include img1.html subpath="final" img="speakers-in-model.jpg" %}
+
+In this model, the speakers mount underneath (inside the base of the bench) and there is a pocket milled out on top. The pocket provides space to put in speaker grills that would be flush with the rest of the top of the bench, thus keeping the entire sitting surface at the same level.
+
+The next consideration was how to mount the load cells under the seats so that the bench could sense when two people were sitting. The seats sit on top of two beams that span between the two bench bases. At first I played around with a bunch of ideas of how to mount them (adding cross braces that the load cell count mount on, attaching them to the bases, etc.) until I came up with (in my opinion) a fairly elegant solution. I notched out slots for the strain gauges in each beam so that they would lie flat when no force was on the seat, but would have space on one side to flex downward when force was applied.
+
+{% include img1.html subpath="final" img="load-cell-notches.jpg" %}
+
+In this picture, you can also see some tabs I added on to the top of the beams (which match pockets on the underside of the seats) to keep the seats in place.
+
+At this point, I felt like I had a good model for what I wanted to build and moved on to some other parts of the project including...
+
+### Electronics
+
+Despite having drawn the "final" board the previous week, I decided it actually didn't make sense for me to go that route. One reason was that I though the load cells had to operate at 5v (more on this later) whereas the Xmegas are exclusively 3.3v chips. But moreover, I wanted to modularize the electronics into single-purpose boards which would be easier for design, manufacturing, programming, and testing. Plus, I was already planning on doing this with the audio amplifier board, so it made sense to go all in on this type of design. From there, I redesigned my electronics into several different smaller boards. Namely:
+
+- The Load Cell Board: takes continuous readings of the (now) 4 load cells to determine when two people are seated
+- The Audio Board: when triggered by the load cell board, reads audio files from the SD card and outputs the samples through the DAC
+- The Amplifier Boards: amplifies the audio signal from the audio board and outputs audio signal to the speakers
+- The Power Board: distributes power to the rest of the electronics
+
+In one fell swoop (late at night), I redrew the schematics and PCB layouts for both the load cell board and the audio board. I fell asleep proud of myself only to wake up and realize I had forgot the crucial step of adding a connector to *both* boards to allow them to communicate. Luckily, both layouts only took minimal redrawing to get the proper connector in there. I milled and soldered both of these.
+
+{% include img2.html subpath="final" img1="final-audio-milled.jpg" img2="final-load-cell-milled.jpg" %}
+
+When it came to the amplifier board, I got to get my hands dirty with some math(!) to figure out what components I would need to drive the speakers given the constraints of the electronics.
+
+{% include img1.html subpath="final" img="math.jpg" %}
+
+For some reason, I had convinced myself that the fab inventory carried 20kOhm SMD potentiometers, but upon traveling down to the shop to find the necessary components, I found only 10kOhm pots. Since my design rested on the 20kOhm value, I got to do more math:
+
+{% include img1.html subpath="final" img="more-math.jpg" %}
+
+From there, I was able to design a board, mill it, and assemble most of it (now I'm only waiting for the amp ICs to come in the mail). I also made a little power board to connect all the components to the power supply (at first, I thought I might provide both 5v and 3.3v output, but decided instead to keep all the voltage regulators on each board separately). Look at all my adorable little boards! (Adoraboards?)
+
+{% include img1.html subpath="final" img="adoraboards.jpg" %}
+
+Now it was time for...
+
+### Audio Programming
+
+The first time I tried to program the audio board, I got the dreaded rc=-1 error from avrdude and I was so frustrated after all the problems getting this to work over the last many weeks. Then, in a moment of clarity within the rage, I realized I plugged the PDI cable in backward. Crisis averted.
+
+After testing to make sure I could at least output sensible values to the DAC, I started playing around with reading audio off the SD cards. SD cards are surprisingly simple (they literally just use SPI to communicate with no other layer on top). The trickier part is working with a file system on the card. Naturally, I wanted to be able to put audio files the card using my computer, and then play them back through the bench. After doing some reading, it seemed like using FAT16 was the way to go. I found an SD card in LLK which, luckily, was already formatted in FAT. I put it in my computer to find, surprisingly, that it had 2 audio files (mp3s) on it already! I opened up the obtusely named "TRACK001" to find that it was in fact the late-90s smash hit, "My Heart Will Go On" by Celine Dion.
+
+{% include img1.html subpath="final" img="celine.jpg" %}
+
+The other file was a boring 440Hz test tone.
+
+Unfortunately, I was aiming to play WAV files instead of mp3s (since they're dead-simple to extract audio data out of) so I didn't do anything with them. Instead, I found the test song I always use for audio projects and loaded it on my SD card. That test song is the inimitable, and perfect, "Time After Time" by Cyndi Lauper.
+
+{% include img1.html subpath="final" img="cyndi.jpg" %}
+
+I did some reading about the best way to read FAT files using AVR microcontrollers and stumbled upon the [Petit FS](http://elm-chan.org/fsw/ff/00index_p.html) library, which has turned out to be awesome. It's super minimal and with some basic setup (with help from Atmel's documentation as well) it can read and write from a FAT file system and takes up as little as 1k of program memory. Once I got this compiling with my toolchain, I tried getting audio off the card.
+
+The first few tries I couldn't even get the device to mount. Upon inspection of the board, I found a few traces on the SD socket that were bridged with the sheild, which clearly was wrong. It took a while to desolder them properly, but once they were, the card mounted like a charm. A few lines of code later and I could get a chunk of bytes out of the file!
+
+Now I was really in my element. I *love* programming in C because it gives you so much direct access to doing the one thing that computers do: access memory and manipulate it. E.g., I created a WavFile struct (based on the file format spec) and by simply casting the pointer to the first bytes on the SD card to this type, I could easily get all the necessary data about the file.
+
+{% include img1.html subpath="final" img="wav-header.jpg" %}
+
+From there, it wasn't too hard to read the audio bytes sequentially off the disk and write them to the DAC. Clearly I was getting something out, but not the right thing. It looked like periods of silence interspersed with high amplitude sections. However, after playing the file a little longer, something started to emerge in the "silent" part. Could that be audio??
+
+{% include img1.html subpath="final" img="maybe-audio.jpg" %}
+
+Zooming in with the scope provided some more clues. It was definitely a meaningful waveform.
+
+{% include video.html subpath="final" filename="definitely-audio.mp4" %}
+
+Okay, this was a good sign, but why all the cruft in the second half? Thinking about it for a while, i realized that I had a mismatch in my samples vs. sample data size (i.e., 16 bits per sample instead of 8) so I was trying to output data beyond the bounds of the sample array. Once I fixed that up, I could see some real audio coming out!
+
+However, a new problem arose. Clearly there was a huuuuuggeee bottleneck in streaming new samples off the SD card when the DAC would get to the end of the buffer. I played around with both the Xmega clock settings and the SPI prescaling, which helped considerably, but certainly not enough to fully fix the problem. Furthermore, I was really just adding a microseconds delay between samples which wouldn't totally guarantee accurate sample output timing. Between these two things, I opted for a significant refactor of the code.
+
+I set up a timer interrupt to run every 1 / 44100 second that would output the next sample. This would free up the main loop to only have to worry about communicating with the SD card. However, with only one buffer for samples, there was a chance that the main loop could overwrite samples before the DAC had a chance to output them. With this in mind, I set up a double buffering system where each time the DAC starts reading one buffer, the main loop streams audio data into the other. After tracking down some bugs in my initial implementation, I looked at the scope to see...
+
+{% include video.html subpath="final" filename="cyndi-waveform.mp4" %}
+
+Cyndi herself would be proud of that waveform.
+
+### Back to the Bench
+
+Meanwhile, I also wanted to make sure that my press-fit bench pieces would actually fit well together so I printed some test parts to check. I assumed that I would need to leave a little gap in the model between the pieces so that they would press-fit nicely together, so each of my test pieces had a slightly larger gap. After machining them, I was surprised to find that they were *all* too loose and that I would need to tighten up the gaps considerably. Womp womp. Also, they didn't machine all the way through and came out looking terrible.
+
+{% include img1.html subpath="final" img="test-parts-1.jpg" %}
+
+Also, just for funsies, I made a tiny cardboard bench on the laser cutter.
+
+{% include img1.html subpath="final" img="tiny-cardboard-bench.jpg" %}
+
+### Back to Electronics
+
+Now that I had the audio board essentially working (at least, the basics), I moved on to the load cells. I had already gotten a single load cell to work with the ATTiny ADC during inputs week, but I wanted to test it at 3.3v to make sure that everything was hunky-dory. Sure enough, it worked like a charm. From there, I hooked up all 4 load cells to make sure that there wasn't going to be any weirdness with using 4 at a time. For a while, I was stumbling over this odd bug where no matter which load cell I tried to get data from, only the 4th load cell would actually report. Turned out I had forgotten how bitwise-OR works which meant that when I was setting the ADMUX register to switch between load cells, it was still always reading the one. Once that was fixed up, it worked like a charm.
+
+{% include img1.html subpath="final" img="four-load-cells.jpg" %}
+
+### Back Again to the Bench
+
+After getting the actual plywood I was going to use for the bench, I reprinted some test parts with tighter gaps and got a lovely press fit (with help from a rubber mallet).
+
+{% include img1.html subpath="final" img="test-parts-2.jpg" %}
+
+Using those values, I updated my model in Fusion and nested the parts in preparation for machining. Some of this turned out to be easier than expected (updating all the necessary gaps) while some of this turned out to be incredibly annoying (getting the Dogbone plugin to work properly). Finally, though, I had some vectors to machine.
+
+{% include img1.html subpath="final" img="nested-vectors.jpg" %}
+
+I headed down to the shop and put the toolpaths together. And after double, triple, and quadruple checking everything (including realizing at the last second that I put my board stock in sideways), I hit go. THe first pocket appeared!
+
+{% include img1.html subpath="final" img="first-pocket.jpg" %}
+
+Almost as quickly as it began, machining stopped on the second pocket when the plate holding the air handler tube slid off the spindle mechanism. I hit stop and got the plate sorted out (sort of: it is actually legitimately broken) and resumed the job. Stupidly, I didn't restart the spindle which gave me a second pocket that looked terrible.
+
+{% include img1.html subpath="final" img="terrible-pocket.jpg" %}
+
+Once again I stopped the job, fixed up the spindle, and got going again. Luckily at the end of the job, I ran just that pocket path again and it cleaned it up nicely.
+
+{% include img1.html subpath="final" img="cleaned-up-pocket.jpg" %}
+
+The rest of machining went off without a hitch (aside from losing the coordinate system once, but luckily while the spindle was in the air, so it was easy to recalibrate it) and at the end of it I had some nice parts.
+
+{% include img2.html subpath="final" img1="speaker-pocket.jpg" img2="machined-bench-parts.jpg" %}
+
+After a LOT of sanding, the moment of truth came: would the pieces press-fit together?
+
+{% include img1.html subpath="final" img="first-press-fit-arm.jpg" %}
+
+Huzzah!!
+
+So at this point (with a week left), I'd say I'm about 70% done. Aside from the amplifiers, all the pieces are tested and the majority of the work left is in integrated all the systems together. That will undoubtedly be the make-or-break part of this project, but at the moment, I'm feeling optimistic.

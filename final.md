@@ -6,6 +6,16 @@ short: Story Benches
 published: true
 ---
 
+# Project Overview
+
+This project aimed to create a fabbable bench to play audio when two people sat down next to each other. While there are [several existing](http://www.soofa.co/getsoofa/) [bench projects](http://benchmark.mit.edu/), this one was designed explicitly as part of larger political intervention project which aimed to connect citizens across urban and rural spaces in the US through storytelling. More on the overall project can be found [here](https://thebenches.media.mit.edu/).
+
+In terms of fabrication, this project is likely most similar to the [Fab Boombox](http://fab.cba.mit.edu/classes/863.11/people/matthew.keeter/fab_boombox/), only the enclosure is a bench instead of a box. Beyond getting the bench to play audio when two people sit down, additional design goals included keeping costs low, making it easy to transport, and keeping it simple enough that it could be fabricated and deployed in various spaces across the US. Below, you'll find a running blog about the progression of the project from start to finish.
+
+<hr />
+
+# Blog Updates:
+
 At the beginning of the semester, I played around with a few different final project ideas (you can find more info in week 1 of my blog). Since then, my idea has shifted toward a joint project between the two courses I'm currently taking. The other course is titled Depolarization by Design (taught by Deb Roy and Nabeel Gillani) in which we focus on understanding the current polarized political climate in the United States and then, as a final project, design an intervention to address such polarization. To quote from the course website:
 
 > ...we believe constructive steps include a) **map** and track tribes and seek to understand factors that are driving shifts, b) **surface** voices, concerns and narratives typically unheard outside of their own communities c) **bridge** tribes by amplifying common concerns, sharing stories that build empathy, and making new connections between people to build trust and common ground.
@@ -310,7 +320,6 @@ They came out great and fit perfectly!
 
 From there it was back to working on code. After realizing that I had changed the clock speed of the ATTiny44 that sensing the sitting so obviously the serial port wasn't running at the right speed, I was able to fix up the serial communication and get some readable values out of the load cells.
 
-**IMAGE: Load Cell Values**
 {% include img1.html subpath="final" img="load-cell-values.jpg" %}
 
 Here, it became clear that one of the sensors was consistenly reading about 20 points higher than the others. I wondered if this was an issue with the cell itself, so I tried replacing it with the one backup I had on hand, though the backup seemed to be more erratic in its reading. At least the first one was consistently off, so I put it back in and fixed up the values in code. From there, it wasn't too hard to get the sit sensing working a lot more robustly.
@@ -341,5 +350,16 @@ I also utilized a few more features of PetitFS to automatically detect and load 
 
 At this point, I deemed the project a solid prototype and called it a night.
 
+## Last Minute Fixes
 
+The morning of the final presentation, I found that the bench was sometimes playing back bogus audio (i.e., it clearly wasn't loading a correct WAV file into memory). After some investigation, I figured out that when PetitFS was enumerating the files, it was including hidden files, which I hadn't considered. By getting it to skip hidden files in both enumeration and playback, all was resolved. And with 75 minutes to spare!
+
+
+<hr />
+
+# The Upshot
+
+Overall, I think this project was a success in the sense that it met the minimum requirements that the bench played audio triggered by two people sitting down on it. It also met some of the other design goals. I.e., it's simple to fabriacte, assemble, and move and relatively cost effective (see more on costs below). I was especially happy with how sturdy the bench came out, the sound quality of the speakers, and how easy it is to move around (it's actually quite light!). Still, there are areas that I woud continue to refine in future iterations of the project. Namely, the load cells work well but are fairly expensive for what they do. I would probably go back and do more experimenting with capacitive force sensing. And while the overall design is easy to put together, I think it would be interesting to figure out how to shorten up the beams under the bench. That way the whole thing could be taken apart and transported in a small amount of volume, which would be nice given the goal to deploy these in various spaces across the country. With all that said, I'm really happy with how it came out and looking forward to future iterations!
+
+## Materials Cost
 

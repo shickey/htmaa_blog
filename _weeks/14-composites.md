@@ -64,8 +64,9 @@ Nonetheless, I put my composite into a vacuum bag and pulled a fairly strong vac
 
 The next morning I opened the bag to find...
 
-**IMAGE: Finished Composite**
 {% include img1.html subpath="14-composites" img="finished-composite.jpg" %}
 
-Well, this is probably the ugliest thing I made this semester, but it did come out pretty strong!
+Well, this is undoubtedly the ugliest thing I made this semester, but it did come out pretty strong! Agnes suggested that it looked more like a horseshoe crab than anything else.
+
+{% include img1.html subpath="14-composites" img="horseshoe-crab-composite.jpg" %}
 

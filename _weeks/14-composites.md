@@ -35,9 +35,37 @@ I replicated these vectors around the bottom heptagon to create the rest of the 
 
 Part of making the flat representation was that I could make a cardboard mold on the laser cutter rather than going through the process of machining foam. This went off without a hitch and I was able to get a cardboard model put together quickly.
 
-**IMAGE: Cardboard Bowl**
-{% include img1.html subpath="14-composites" img="cardboard-bowl.jpg" %}
+{% include img2.html subpath="14-composites" img1="cardboard-bowl-1.jpg" img2="cardboard-bowl-2.jpg" %}
+
+The only problem was that there was very little fabric left by the time I went to do my layup, so this mold wasn't going to work. I went into Illustrator and resized the vectors, as well as made a version with the faces attached in the other orientation (so that I could cut overlapping fabric on the laser cutter later).
+
+**IMAGE: Updated Vectors**
+{% include img1.html subpath="14-composites" img="updated-vectors.jpg" %}
+
+I went ahead and cut a smaller bowl.
+
+{% include img1.html subpath="14-composites" img="tiny-bowl.jpg" %}
+
+Then, using both the original and updated orientations, I laser cut the fabric to fit over the bowl.
+
+{% include img2.html subpath="14-composites" img1="laser-cut-burlap.jpg" img2="fabric-on-bowl.jpg" %}
 
 ## Layup
 
+From there, the layup was straightforward. Using the cardboard mold and fabric, I put together a simple 2-ply composite. Unfortunately, it was hard to really get the fabric to stretch well over the mold and none of the sharp edges came through. At this point, I was going to be surprised if the bowl came out looking like much of a design at all.
+
+{% include img1.html subpath="14-composites" img="layup.jpg" %}
+
+Nonetheless, I put my composite into a vacuum bag and pulled a fairly strong vacuum through it. I was actually a little concerned that the cardboard may not have withstood the vacuum pulling very well, so I was curious to see what would happen when I pulled the piece out.
+
+{% include img1.html subpath="14-composites" img="vacuum-bagged.jpg" %}
+
+## Finished Composite
+
+The next morning I opened the bag to find...
+
+**IMAGE: Finished Composite**
+{% include img1.html subpath="14-composites" img="finished-composite.jpg" %}
+
+Well, this is probably the ugliest thing I made this semester, but it did come out pretty strong!
 

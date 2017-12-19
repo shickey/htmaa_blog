@@ -237,3 +237,109 @@ After a LOT of sanding, the moment of truth came: would the pieces press-fit tog
 Huzzah!!
 
 So at this point (with a week left), I'd say I'm about 70% done. Aside from the amplifiers, all the pieces are tested and the majority of the work left is in integrated all the systems together. That will undoubtedly be the make-or-break part of this project, but at the moment, I'm feeling optimistic.
+
+## Final Week Updates
+
+With most/all of the individual pieces ready to go, the name of the game this week was assembly and integration. But first...
+
+### Audio Amplifiers
+
+Now that I had amplifier chips on hand, I could finish the amplifier board and (hopefully) get audio playing at a reasonable level. I soldered the chip to the board I had and plugged it in. Immediately, something was not working correctly. The voltage regulator was getting hot and wasn't outputting the correct 3.3v (or so I thought). At first I thought it was a short between power and ground, but after testing a bunch and looking at the schematic, I returned to the datasheet for the part to discover that the pinout did not match the KiCad footprint I used. No wonder it was getting hot and not working.
+
+Back in Kicad I fixed the footprint and rerouted the board. At this point, I (for some unknown reason [note: foreshadowing]) decided it would be a good idea to add an extra 10k resistor on the incoming audio signal line in addition to the trim pot. My thought was that the 10k resistor would provide the 10k I calculated as necessary for the gain and the trim pot would allow me to adjust that a bit as a basic volume control.
+
+After milling and stuffing this board, I plugged it in only to find once again that it was getting really hot. Only this time it was getting *really* hot. As in, the voltage regulator melted its solder connections at one point. It was also trying to pull crazy amounts of current. However, both of these were happening intermittently. I wondered if it was working at all and tried feeding a signal into it which _kind of_ worked. Still, eventually it would get itself into a weird state and start trying to pull a ton of current again. After banging my head against the wall about this for a while and trying different voltage regulator chips, different amplifier ICs, etc., Tom&aacute;s offered to help me out. After some debugging he wisely pointed out that between the 10k resistor and the trim pot, I had actually put ~15kOhms on the input line, which (according to the datasheet) was setting the amplifier's gain *way* too high, and thus pulling so much current and generated so much heat. After a few quick fixes with the soldering iron (i.e., removing the pot and replacing it with a 0Ohm resistor) the amplifier was up and running. Phew!
+
+At this point, I could run an audio signal into the amplifier and get something at a resonable volume out of the speakers. However, it didn't sound quite right. I figured I was miscounting samples or something and played around with the code a bit. There certainly was audio coming out, but not the right audio. At times it was way too slow (double-counting samples):
+
+{% include video.html subpath="final" filename="slow-cyndi.mp4" %}
+
+And at other times, it was just plain wrong:
+
+{% include video.html subpath="final" filename="wrong-cyndi.mp4" %}
+
+I started to wonder if I was having buffer underrun issues so I refactored the code to use a triple buffering scheme. All of this seemed to be getting closer to a solution, but it stil wasn't quite right yet. It seemed like samples were out of order, or something else weird. I decided to take a break from the audio for a while.
+
+### Bench Assembly, Redux
+
+At this point, Kalli and I met up to put together the rest of the bench. Between the two of us, the pieces went together quickly. Here's Kalli installing one of the speakers:
+
+{% include img1.html subpath="final" img="kalli-installing-speaker.jpg" %}
+
+The pieces fit together super-well and when we were done, we were both very pleasantly surprised by how sturdy the whole thing felt!
+
+{% include img1.html subpath="final" img="sitting-on-bench.jpg" %}
+
+From there, we took the bench up to LLK and installed the load cells.
+
+{% include img1.html subpath="final" img="kalli-load-cells.jpg" %}
+
+We also spent a bunch of time extending the wires out long enough to reach to sides of the bench and heat shrinking everything together (which was very very satisfying). The 3D printed clips did their job nicely of keeping the wires in order and out of sight.
+
+{% include img1.html subpath="final" img="wiring-the-bench.jpg" %}
+
+At this point, I returned to the audio code and with Kalli there to help think through the bugs, I got it up and working by lowering the WAV file sampling rate to 22050.
+
+{% include video.html subpath="final" filename="right-cyndi.mp4" %}
+
+We also tested the sit sensing code and found it to be pretty responsive! Here's a nice square wave with rising and falling edges from when we sat down and stood up from the bench, respectively.
+
+{% include img1.html subpath="final" img="sit-sensing-square-wave.jpg" %}
+
+It wasn't perfect and definitely needed some tuning, but it was definitely on the right track.
+
+## Getting It Working
+
+The next day, I wanted to at least get a sense of how the electronics would fit in the bench, so using duct tape, I laid them out on the underside of one of the speaker panels.
+
+{% include img1.html subpath="final" img="duct-tape-electronics.jpg" %}
+
+Now that everything was in place, I could actually test all the pieces together. I had to use a pretty sizable bucket of legos to mimic a second person sitting on the bench.
+
+{% include img1.html subpath="final" img="bucket-of-legos.jpg" %}
+
+The basic functionality was testing okay, those there were still definitely some bugs in the software. Getting the sit sensors calibrated correctly was more challenging than expected (certainly this was partially because I couldn't get serial output working through the FTDI header) and the audio code needed some cleaning up as well (buzzing at the end of tracks, etc.).
+
+I took a break from software and went to the shop and laser cut some speaker grills from a simple design I made in Illustrator.
+
+{% include img1.html subpath="final" img="cutting-speaker-grills.jpg" %}
+
+They came out great and fit perfectly!
+
+{% include img2.html subpath="final" img1="speaker-grills-1.jpg" img2="speaker-grills-2.jpg" %}
+
+From there it was back to working on code. After realizing that I had changed the clock speed of the ATTiny44 that sensing the sitting so obviously the serial port wasn't running at the right speed, I was able to fix up the serial communication and get some readable values out of the load cells.
+
+**IMAGE: Load Cell Values**
+{% include img1.html subpath="final" img="load-cell-values.jpg" %}
+
+Here, it became clear that one of the sensors was consistenly reading about 20 points higher than the others. I wondered if this was an issue with the cell itself, so I tried replacing it with the one backup I had on hand, though the backup seemed to be more erratic in its reading. At least the first one was consistently off, so I put it back in and fixed up the values in code. From there, it wasn't too hard to get the sit sensing working a lot more robustly.
+
+Aside: one nice thing about building a bench for your project is that it gives you a great work space to test and debug:
+
+{% include img1.html subpath="final" img="bench-debugging.jpg" %}
+
+I decided to take some time to attach the electronics in a better way inside the bench. Using the KiCad PCB designs I had, I laser cut a number of small wooden parts to mount the circuit boards on.
+
+{% include img1.html subpath="final" img="board-mounts.jpg" %}
+
+These mounts were necessary for a number of boards to give the undersides proper clearance for screw terminals.
+
+{% include img1.html subpath="final" img="mounts-screw-terminals.jpg" %}
+
+Then, I attached the mounted boards to the underside of one of the speaker panels and attached everything up.
+
+{% include img1.html subpath="final" img="mounted-boards.jpg" %}
+
+Once again, I turned to the audio code, which I wanted to clean up considerably and add some other features to it. E.g., I wanted the audio to start to fade out if one person stood up while listening to the audio. If then, they sat back down quick enough, the audio would fade up to full volume again. If, however, they waiting too long, the audio would sipmly stop. Getting the code written wasn't too hard and it gave me a chance to do a nice cleanup pass on the code I had written so far. However, when I went to run it on the bench, the audio was...creepy?
+
+{% include video.html subpath="final" filename="creepy-cyndi.mp4" %}
+
+This was especially weird because it sounded slow, but not super pitch-shifted. Mostly it was just distorted and weird. After an hour or so of debugging, I realized that the interrupt handler was getting bogged down and wasn't able to output samples as fast as necessary. I was sort of surprised by this since there wasn't *that* much more logic from previous versions of the code and there should have been plenty of leftover time in the interrupt handler to accomodate it. Finally, I tracked it down to a single floating-point multiplication (i.e., multiplying by the current "fade" value) that was slowing it down so much. Through a quick investigation on the internet, I learned that a floating point multiplication is *really* expensive on an AVR chip. So now it all started to make sense. Given the time I had left before needing to present the project (i.e., this was the day before it was due), I opted to load a simplified version of the code on the bench that didn't have any fading capability just so I had something working to show. I figured if I ended up having more time before the presentation, I could always dive further into optimizing the fading code.
+
+I also utilized a few more features of PetitFS to automatically detect and load WAV files from the root directory of the SD card. This effectively meant that one could simply swap out the card with any card containing WAV files (with 22050 sampling rate) and the bench would play them with no modifications necessary.
+
+At this point, I deemed the project a solid prototype and called it a night.
+
+
+
